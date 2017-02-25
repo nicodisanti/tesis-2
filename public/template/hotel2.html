@@ -1,0 +1,156 @@
+<h2>Resultados de tu búsqueda</h2>
+
+<div id="container">
+	<div id="row1" class="row">	
+		<div id="searchBox" style="" class="col-xs-5">
+	    		<img src="left.png"/>
+	    	</div>
+		<div id="filters" style="" class="col-xs-8"   >
+			<label>Seleccione un perfil de viaje</lable>
+			<div class="btn-group" scope="row"> 
+				<label class="hidden" id="mensaje3">Perfil: </label>
+				<input  type="button" class="btn btn-default" ng-click="showVacaciones()" value="Vacaciones" id="vacaciones"/>
+				<input  type="button" class="btn btn-default" ng-click="showTrabajo()" value="Trabajo" id="trabajo" />
+				<input  type="button" class="btn btn-default" ng-click="showLujo()" value="Lujo" id="lujo"/>
+				<input  type="button" class="btn btn-default" ng-click="showPersonalizado()" value="Personalizado" id="personalizado"/>
+			</div>
+			<div class="btn-group hidden" id="panelvacaciones" style="position:relative;width:100%;" scope="row">
+				<label id="mensaje2">Filtros: </label>
+				<input  type="button" class="btn btn-primary" ng-click="showPrecio()" value="Precio" id="precio"/>
+				<input  type="button" class="btn btn-primary" ng-click="showStars()" value="Estrellas" id="estrellas" />
+				<input  type="button" class="btn btn-primary" ng-click="showServicios()" value="Servicos" id="servicios"/>
+				<input  type="button" class="btn btn-primary" ng-click="showPago()" value="Forma de pago" id="pago"/>
+			</div>
+			<div class="btn-group hidden" id="panelprecio" style="position:relative;" scope="row">
+				<input  type="text" value="Precio por noche" id="precio" ng-model="precio"/>
+				<input  type="button" class="btn btn-primary" ng-click="applyPrecio()" value="Aplicar" id="pricevalue" />
+			</div>
+			<div class="btn-group hidden" id="panelestrella" style="position:relative;" scope="row">
+				<input type="checkbox" name="estrellas" value="1 estrella">1</input>
+				<input type="checkbox" name="estrellas" value="2 estrellas">2</input>
+				<input type="checkbox" name="estrellas" value="3 estrellas">3</input>
+				<input type="checkbox" name="estrellas" value="4 estrellas">4</input>
+				<input type="checkbox" name="estrellas" value="5 estrellas">5</input>
+				<input  type="button" class="btn btn-primary" ng-click="applyStars()" value="Aplicar" />
+			</div>
+			<div class="btn-group hidden" id="panelpago" style="position:relative;" scope="row">
+				<input type="checkbox" name="pago" value="pago efectivo">Pago en efectivo</input>
+				<input type="checkbox" name="pago" value="pago en el hotel">Pago en el hotel</input>
+				<input type="checkbox" name="pago" value="pago en cuotas">Pago en Cuotas</input>
+				<input  type="button" class="btn btn-primary" ng-click="applyPago()" value="Aplicar" />
+			</div>
+			<div class="btn-group hidden" id="panelservicios" style="position:relative;" scope="row">
+				<lable>WIFI</lable>
+				<select name="servicios" id="wifi">
+					<option>No mostrar</option>
+					<option>Obligatorio</option>
+					<option>Deseable</option>
+				</select>
+				<lable>recepcion 24 hs</lable>
+				<select name="servicios" id="recepcion">
+					<option>No mostrar</option>
+					<option>Obligatorio</option>
+					<option>Deseable</option>
+				</select>
+				<lable>pileta</lable>
+				<select name="servicios" id="pileta">
+					<option>No mostrar</option>
+					<option>Obligatorio</option>
+					<option>Deseable</option>
+				</select>
+				<lable>playa</lable>
+				<select  name="servicios" id="playa">
+					<option>No mostrar</option>
+					<option>Obligatorio</option>
+					<option>Deseable</option>
+				</select>
+				<input  type="button" class="btn btn-primary" ng-click="applyServices()" value="Aplicar" />
+			</div>
+			<div id="prioridad" class="hidden">
+				<div ng-if="showStars">
+					<label>Ordenar estrellas </label>
+					<div class="btn-group">
+						<select class="form-control btn btn-primary dropdown-toggle"  data-toggle="dropdown" id="selStars">
+							<option></option>    
+							<option data-icon="glyphicon glyphicon-arrow-down">Mayor a menor</option>
+							<option data-icon="glyphicon glyphicon-arrow-up">Menor a mayor</option>
+						</select>
+					</div>
+				</div>
+	<div ng-if="showPrice">
+		<label>Ordenar Precio </label>
+		<div class="btn-group">
+			<select class="form-control btn btn-primary dropdown-toggle"  data-toggle="dropdown" id="selPrice">
+				<option></option>    
+				<option data-icon="glyphicon glyphicon-arrow-down">Mayor a menor</option>
+				<option data-icon="glyphicon glyphicon-arrow-up">Menor a mayor</option>
+			</select>
+		</div>
+	</div>
+
+	<div ng-if="showPriceAndStars">
+		<div class="row">
+  			<div class="col-xs-5">
+    				<div class="form-group">
+					<label>Ordenar Por </label>      					
+					<select class="selectpicker form-control" ng-change="enableFirstValue()"  ng-model="ordenadores" data-width="auto" id="firstOrder">
+						<option >Precio</option>
+						<option >Estrellas</option>
+
+						      					</select>
+					<select class="selectpicker form-control" data-width="auto" id="firstValue" ng-change="enableSecOrder()" ng-model="algo" disabled>
+						<option data-icon="glyphicon glyphicon-arrow-down" >Ascendente</option>
+						<option data-icon="glyphicon glyphicon-arrow-up" >Descendente</option>
+      					</select>
+					<label>Y tambien por </label>
+					<select class="selectpicker form-control" data-width="auto" id="secOrder" disabled ng-model="algo2" ng-change="enableSecondValue()">
+						<option ng-repeat="opt in ordenadores2" >{{opt}}</option>					
+					</select>
+					<select class="selectpicker form-control" data-width="auto" id="secValue" disabled>
+						<option></option>						
+						<option data-icon="glyphicon glyphicon-arrow-down">Ascendente</option>
+						<option data-icon="glyphicon glyphicon-arrow-up">Descendente</option>
+      					</select>
+    				</div>
+  			</div>
+		</div>
+	</div>
+<div class="btn-group hidden" id="panelbotones" style="position:relative;width:100%;" scope="row">
+<input  type="button" class="btn btn-primary" ng-click="aplicarFiltros()" value="Aplicar Filtros" />
+<input  type="button" class="btn btn-primary" ng-click="aplicarOrden()" value="Setear Orden" />
+</div>
+	    	</div>
+	</div>
+	<div id="row2"class="row">	
+		<div class="col-xs-5" id="selectedFilters" style="padding-top:10%;" >
+
+			<table>
+			<tr  class="hidden" id="panelfiltros" style="position:relative;" scope="row">
+			<td> 
+			<label>filtros seleccionados</label>
+			<div ng-if="pagos.length>0">
+			<label>{{pagos}}</label>
+			</div>
+			<div ng-if="stars.length>0">
+			<label>{{stars}}</label>
+			</div>
+			<div ng-if="services.length>0">
+			<label>{{services}}</label>
+			</div>
+			<div ng-if="precio.length>0">
+			<label>{{precio}}</label>
+			</table>
+		</div>
+		<div id="results" style=""  class="col-xs-10">
+	    		<div ng-repeat="h in hotels | orderBy:customOrder">		
+				<div id="datoshotel2">
+					<label>Nombre: {{h.name}}</label>
+					<label>Destino: {{h.destination}}</label>
+					<label>Precio: {{h.price}}</label>
+					<label>Estrellas: {{h.stars}}</label>
+					<label>Servicios: {{h.services}}</label>
+        			</div>
+	    		</div>
+		</div>
+	</div>
+</div>

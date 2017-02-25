@@ -1,0 +1,60 @@
+<h2>¿Dónde queres ir?</h2>
+
+ <script>
+         $(function() {
+            $( "#datepicker-ci" ).datepicker();
+            $( "#datepicker-ci" ).datepicker("show");
+	    $( "#datepicker-co" ).datepicker();
+            $( "#datepicker-co" ).datepicker("show");
+         });
+      </script>
+<div>
+<form ng-submit="findHotels()" class="form-horizontal" role="form" style="padding-left:5%;">
+  <div class="form-group">
+    <label class="col-lg-2 control-label">Por favor, ingresa una ciudad</label>
+    <div class="col-lg-10" style="width:30%;">
+      <input type="text"  class="col-lg-10" placeholder="destino" ng-model="destination"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="datepicker-ci" class="col-lg-2 control-label glyphicon glyphicon-th">Por favor, ingresa una fecha de entrada.</label>
+    <div class="col-lg-10" style="width:30%;">
+      <input type="text"  class="col-lg-10" placeholder="checkin"  id="datepicker-ci"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="datepicker-co" class="col-lg-2 control-label">Por favor, ingresa una fecha de salida.</label>
+    <div class="col-lg-10" style="width:30%;">
+      <input type = "text"  class="col-lg-10" placeholder="checkout" id = "datepicker-co"></input>
+    </div>
+  </div>
+<div class="form-group">
+    <label for="sel1" class="col-lg-2 control-label">Por favor, ingresa cantidad de habitaciones</label>
+    <div class="col-lg-10">
+      <select class="selectpicker" id="sel1" style="width:10%;">
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+       </select>
+    </div>
+   </div>  
+
+<div class="form-group">
+    <label for="sel1" class="col-lg-2 control-label">Por favor, ingresa cantidad de pasajeros</label>
+    <div class="col-lg-10">
+      <select class="selectpicker" id="sel1" style="width:10%;">
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+		<option>5</option>
+		<option>6</option>
+		<option>7</option>
+		<option>8</option>
+       </select>
+    </div>
+   </div>
+<button type="submit">Buscar</button>
+</form>
+</div>

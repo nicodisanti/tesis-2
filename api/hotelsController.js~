@@ -1,0 +1,42 @@
+//File: controllers/notebooks.js
+//var mongoose = require('mongoose');
+var Hotel  = require('../models/hotel');
+
+//GET - Return all notebooks in the DB
+exports.findAllHotels = function(req, res) {
+	Hotel.find(function(err, hotels) {
+    if(err) res.send(500, err.message);
+
+    console.log('GET /hotel')
+		res.status(200).jsonp(hotels);
+	});
+};
+
+//GET - Return a Notebook with specified ID
+exports.findByDestination = function(req, res) {
+	Hotel.findByDestination(req.params.destination, function(err, hotel) {
+    if(err) return res.send(500, err.message);
+
+    console.log('GET /hotel/' + req.params.destination);
+		res.status(200).jsonp(notebook);
+	});
+};
+
+//POST - Insert a new Notebook in the DB
+exports.addHotel = function(req, res) {
+	console.log('POST');
+	console.log(req.body);
+
+	var hotel = new Hotel({
+		name:    req.body.name,
+		destination:   req.body.destination,
+		price:  req.body.price,
+		stars:  req.body.stars,
+		services:  req.body.services
+	});
+
+	hotel.save(function(err, notebook) {
+		if(err) return res.send(500, err.message);
+    res.status(200).jsonp(notebook);
+	});
+};

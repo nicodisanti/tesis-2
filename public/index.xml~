@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Angular App!</title>
+    <script type="text/javascript" src="angular.js"></script>
+    <script type="text/javascript" src="angular-ui-router.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+  <body ng-app="testTesis" ng-controller="HomeController">
+	<div ng-repeat="h in hotel">
+  		{{h.name}} - {{h.destination}} - {{h.price}} - {{h.stars}} - {{h.services}}
+	</div>
+   <form ng-submit="addHotel()">
+  	<input type="text" placeholder="Name" ng-model="name"></input>
+  	<br>
+  	<input type="text" placeholder="Destination" ng-model="destination"></input>
+  	<br>
+	<input type="text" placeholder="Price" ng-model="price"></input>
+  	<br>
+	<input type="text" placeholder="Stars" ng-model="stars"></input>
+  	<br>
+	<input type="text" placeholder="Services" ng-model="services"></input>
+  	<br>
+  	<button type="submit">Post</button>
+   </form>
+  </body>
+</html>
