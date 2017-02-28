@@ -5,12 +5,9 @@
 <div id="container">
   <div id="searchBox" style="float:left;" >
     <img src="left.png" style="margin-left:2%"/>
-    </div>
-
+  </div>
 
 <div id="table" style="">
-
-
 <table class="table"style="margin-left:40%; width:50%; border: 5px solid white;">
 
 <thead class="thead-default">
@@ -89,31 +86,32 @@
 <table>
 <tbody>
 <tr>
-<td><input  type="button" class="btn btn-primary" ng-click="aplicarOrden()" value="Ordenar" /></td>
+<td><input  type="button" class="btn btn-primary" ng-click="aplicarOrden()" value="Mostrar opciones de ordenamiento" id="opcionesOrdenamiento" />
+<input  type="button" class="btn btn-primary hidden" ng-click="ordenar()" value="Ordenar" id="ordenar" /></td>
 <div id="prioridad" class="hidden">
-	<div ng-if="showPriceAndStars">
+	<div>
+	<div>
 		<div class="row">
   			<div class="col-xs-5">
     				<div class="form-group">
-					<label>Ordenar Por </label>      					
-					<select class="selectpicker form-control" ng-change="enableFirstValue()"  ng-model="ordenadores" data-width="auto" id="firstOrder">
-						<option >Precio</option>
-						<option >Estrellas</option>
-
-						      					</select>
-					<select class="selectpicker form-control" data-width="auto" id="firstValue" ng-change="enableSecOrder()" ng-model="algo" disabled>
-						<option data-icon="glyphicon glyphicon-arrow-down" >Mayor a Menor</option>
-						<option data-icon="glyphicon glyphicon-arrow-up" >Menor a Mayor</option>
+					<label>Criterio principal para ordenar </label>      					
+					<select class="selectpicker form-control" ng-change="enableFirstValue()"  ng-model="ops" data-width="auto" id="firstOrder">
+						<option></option>					
+						<option ng-repeat="op in options" >{{op}}</option>
+					</select>
+					<select class="selectpicker form-control" data-width="auto" id="firstValue" disabled>
+						<option ng-repeat="op in valueOptions" >{{op}}</option>
       					</select>
-					<label>Y tambien por </label>
+					<div id="segundoCriterio" = class="hidden">
+					<label>Criterio secundario para ordenar </label>
 					<select class="selectpicker form-control" data-width="auto" id="secOrder" disabled ng-model="algo2" ng-change="enableSecondValue()">
-						<option ng-repeat="opt in ordenadores2" >{{opt}}</option>					
+					<option></option>
+					<option ng-repeat="opt in ordenadores2" >{{opt}}</option>					
 					</select>
 					<select class="selectpicker form-control" data-width="auto" id="secValue" disabled>
-						<option></option>						
-						<option data-icon="glyphicon glyphicon-arrow-down">Mayor a Menor</option>
-						<option data-icon="glyphicon glyphicon-arrow-up">Descendente</option>
-      					</select>
+						<option></option>
+						<option ng-repeat="opt in valueOptions2" >{{opt}}</option>      						</select>
+					</div>
     				</div>
   			</div>
 		</div>
@@ -141,13 +139,10 @@
 <div ng-if="precio.length>0">
 <label>{{precio}}</label>
 </div>
-
 </table>
 </div>
 <div id="hotel-container" style="padding-left:20%;padding-top:5%;"> 
-	
-
-<div ng-repeat="h in hotels | orderBy:customOrder">		
+<div ng-repeat="h in hotels | filter:customFilter  |orderBy:customOrder">		
 	<div id="datoshotel2">
 		<label>Nombre: {{h.name}}</label>
 		<label>Destino: {{h.destination}}</label>
@@ -156,51 +151,4 @@
 		<label>Servicios: {{h.services}}</label>
         </div>
 </div>
-	
-<div ng-if="orderDownPrice"> 
-      <div ng-repeat="h in hotels  | orderBy:'-price'">
-	<div id="imgContainr">
-<img src="detail.png"/>
-</div>  	     
-<div id="datoshotel">
-<label>{{h.name}}</label>
-<label>{{h.destination}}</label>
-<label>{{h.price}}</label>
-<label>{{h.stars}}</label>
-<label>{{h.services}}</label>
-</div>
-</div>
-<div ng-if="orderUpPrice"> 
-      <div ng-repeat="h in hotels  | orderBy:'price'">
-	<div id="imgContainr">
-<img src="detail.png"/>
-</div>  	     
-<div id="datoshotel">
-<label>{{h.name}}</label>
-<label>{{h.destination}}</label>
-<label>{{h.price}}</label>
-<label>{{h.stars}}</label>
-<label>{{h.services}}</label>
-</div>
-</div>
-<div ng-if="orderDownStars"> 
-      <div ng-repeat="h in hotels  | orderBy:'-stars'">
-	<div id="imgContainr">
-<img src="detail.png"/>
-</div>  	     
-<div id="datoshotel">
-<label>{{h.name}}</label>
-<label>{{h.destination}}</label>
-<label>{{h.price}}</label>
-<label>{{h.stars}}</label>
-<label>{{h.services}}</label>
-</div>
-</div>
-	</div>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
 </div>
