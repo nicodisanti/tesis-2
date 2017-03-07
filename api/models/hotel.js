@@ -4,6 +4,11 @@ module.exports = mongoose.model('Hotel', {
 		destination: String,		
 		name: String,
 		stars: Number,
-		services : [String],
+		wifi : Boolean,
+		desayuno: Boolean,
+		playa: Boolean,
+		cancelacion: Boolean,
+		pileta: Boolean,
+		url: String,
 		price: Number});
 

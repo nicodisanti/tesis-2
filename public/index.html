@@ -1,20 +1,60 @@
 <!DOCTYPE html>
 <html>
   <head>
+<base href="/despegar" />
+
      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
      <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script type="text/javascript" src="scripts/angular.js"></script>
      <script type="text/javascript" src="scripts/angular-ui-router.js"></script>
      <script type="text/javascript" src="scripts/app.js"></script>
- <link rel="stylesheet" href="css/select.css">
+
+<style>
+input {
+-webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+-moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.fondo {
+  margin:2% auto;
+  padding:4%;
+  -webkit-border-radius:9px;
+  -moz-border-radius:9px;
+  border-radius:9px;
+  background: #d7d7d7;
+}
+
+li{
+    border-left:1px;
+border-color:#E3E3E3;
+}
+.fondofiltros {
+margin:2% auto;
+  padding:4%;
+  -webkit-border-radius:9px;
+  -moz-border-radius:9px;
+  border-radius:9px;
+  background-color:#E3E3E3;
+}
+</style>
 </head>
   <body ng-app="testTesis">
-
+<img src="despegar.png"/>
 <div id="searchbox">
     <div ui-view></div>
-</div>  
+</div> 
+<img src="footer.png"/> 
 </body>
 </html>

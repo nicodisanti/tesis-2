@@ -24,35 +24,54 @@ $scope.findHotels =function (){
 appDespe.controller('HotelController', function($scope,filterFilter,hotelsFactory,$stateParams){
 
 $scope.ordenar=function(){ 
+$( "#prioridad").addClass('hidden');
+$( "#opcionesOrdenamiento").removeClass('hidden');	
+$( "#ordenar").addClass('hidden');
 
 	var firstOrder = $('#firstOrder option:selected').text();
 	var firstValue = $('#firstValue option:selected').text();
-
+	if(firstOrder=="Precio"){
+		firstOrder="price";
+	}
+	
+	if(firstOrder=="Estrellas"){
+		firstOrder="stars";
+	}
 	var secOrder = $('#secOrder option:selected').text();
 	var secValue = $('#secValue option:selected').text();
-
-	var customOrder;
-	if(!firstOrder.isEmpty &&firstValue.isEmpty){
+	
+	if(secOrder=="Precio"){
+		secOrder="price";
+	}
+	
+	if(secOrder=="Estrellas"){
+		secOrder="stars";
+	}
+	
+	$scope.customOrder = [];
+	var customOrder = "";
+	if(!firstOrder=="" || !firstValue==""){
 		if(firstOrder!='Servicios'){
 			if(firstValue=="Mayor a Menor"){
-					customOrder = firstOrder.concat('-');
+					firstOrder = "-".concat(firstOrder);
 			}
-			customOrder = customOrder.concat(firstOrder); 
+			$scope.customOrder.push(firstOrder);			
+			
 		}else{
-			customOrder = firstValue;
-		}
-		if(!secOrder.isEmpty &&secValue.isEmpty){
-			customOrder = customOrder.concat(",");
+			$scope.customOrder.push(firstValue);
+					}
+		if(!secOrder=="" ||!secValue==""){
+			
 			if(secOrder!='Servicios'){
 				if(secValue=="Mayor a Menor"){
-					customOrder = customOder.concat('-');
+					secOrder = "-".concat(secOrder);
 				}
-				customOrder = customOrder.concat(secOrder)
+				$scope.customOrder.push(secOrder);
 			}else{
-				customOrder = customOder.concat(secValue);
+				$scope.customOrder.push(secValue);
 			}
 		}
-		$scope.customOrder=customOrder;				
+		console.log($scope.customOrder);
 	}
 }
 
@@ -114,12 +133,6 @@ $( "#ordenar").removeClass('hidden');
 
 };
 
-$scope.ordenar = function(){
-$( "#prioridad").addClass('hidden');
-$( "#opcionesOrdenamiento").removeClass('hidden');	
-$( "#ordenar").addClass('hidden');	
-};
-
 $scope.showProfiles = function(){
 	$( "#resultados" ).removeClass('hidden');        
 	$( "#mensaje" ).removeClass('hidden');
@@ -145,10 +158,10 @@ $scope.showProfiles = function(){
   };
 
 $scope.showPrecio = function(){
-	$( "#estrellas" ).css("background-color","#adad85");
-	$( "#servicios" ).css("background-color","#adad85");
-	$( "#pago" ).css("background-color","#adad85");
-	$( "#precio" ).css("background-color","#19a08c");
+	$( "#estrellas" ).removeClass('active');
+	$( "#servicios" ).removeClass('active');
+	$( "#pago" ).removeClass('active');
+	$( "#precio" ).addClass('active');
 	$( "#panelservicios" ).addClass('hidden');
 	$( "#panelprecio" ).addClass('hidden');
 	$( "#panelpago" ).addClass('hidden');
@@ -157,10 +170,10 @@ $scope.showPrecio = function(){
   };
 
 $scope.showStars = function(){
-	$( "#estrellas" ).css("background-color","#19a08c");
-	$( "#servicios" ).css("background-color","#adad85");
-	$( "#pago" ).css("background-color","#adad85");
-	$( "#precio" ).css("background-color","#adad85");
+	$( "#estrellas" ).addClass('active');
+	$( "#servicios" ).removeClass('active');
+	$( "#pago" ).removeClass('active');
+	$( "#precio" ).removeClass('active');
 	$( "#panelservicios" ).addClass('hidden');
 	$( "#panelprecio" ).addClass('hidden');
 	$( "#panelpago" ).addClass('hidden');
@@ -169,11 +182,10 @@ $scope.showStars = function(){
 
 
 $scope.showServicios = function(){
-	
-	$( "#estrellas" ).css("background-color","#adad85");
-	$( "#servicios" ).css("background-color","#19a08c");
-	$( "#pago" ).css("background-color","#adad85");
-	$( "#precio" ).css("background-color","#adad85");	
+	$( "#estrellas" ).removeClass('active');
+	$( "#servicios" ).addClass('active');
+	$( "#pago" ).removeClass('active');
+	$( "#precio" ).removeClass('active');
 	$( "#panelservicios" ).addClass('hidden');
 	$( "#panelprecio" ).addClass('hidden');
 	$( "#panelpago" ).addClass('hidden');
@@ -183,10 +195,10 @@ $scope.showServicios = function(){
 
 
 $scope.showPago = function(){
-	$( "#estrellas" ).css("background-color","#adad85");
-	$( "#servicios" ).css("background-color","#adad85");
-	$( "#pago" ).css("background-color","#19a08c");
-	$( "#precio" ).css("background-color","#adad85");
+	$( "#estrellas" ).removeClass('active');
+	$( "#servicios" ).removeClass('active');
+	$( "#pago" ).addClass('active');
+	$( "#precio" ).removeClass('active');
 	$( "#panelservicios" ).addClass('hidden');
 	$( "#panelprecio" ).addClass('hidden');
 	$( "#panelpago" ).addClass('hidden');
@@ -195,49 +207,40 @@ $scope.showPago = function(){
   };
 
 $scope.applyPrecio = function(){
-$scope.applyFilters = false;
-	$( "#estrellas" ).css("background-color","#19a08c");
-	$( "#servicios" ).css("background-color","#19a08c");
-	$( "#pago" ).css("background-color","#19a08c");
-	$( "#precio" ).css("background-color","#19a08c");
- 	$( "#panelprecio" ).addClass('hidden');
-	$scope.precio=$scope.precio;        	
+	$scope.applyFilters = false;
+	$scope.showFilters =true;
+ 	$scope.noche=$scope.precio;
+	$( "#panelprecio" ).addClass('hidden');      	
   };
 
 $scope.applyPago = function(){
-$scope.applyFilters = false;
-	$( "#estrellas" ).css("background-color","#19a08c");
-	$( "#servicios" ).css("background-color","#19a08c");
-	$( "#pago" ).css("background-color","#19a08c");
-	$( "#precio" ).css("background-color","#19a08c");
- 	$( "#panelpago" ).addClass('hidden');
-	
-$('input[name="pago"]:checked').each(function() {
-   $scope.pagos.push(this.value);
-});
+	$( "#panelpago" ).addClass('hidden');
+	$scope.pagos = [];
+	$scope.applyFilters = false;
+	$scope.showFilters =true;
+	$('input[name="pago"]:checked').each(function() {
+	   $scope.pagos.push(this.value);
+	});
 };
 
 $scope.applyStars = function(){
-$scope.applyFilters = false;
-$( "#estrellas" ).css("background-color","#19a08c");
-	$( "#servicios" ).css("background-color","#19a08c");
-	$( "#pago" ).css("background-color","#19a08c");
-	$( "#precio" ).css("background-color","#19a08c");
- 	$( "#panelestrella" ).addClass('hidden');
-	$('input[name="estrellas"]:checked').each(function() {
-   $scope.stars.push(this.value);
+	$( "#panelestrella" ).addClass('hidden');	
+	$scope.stars = [];
+	$scope.applyFilters = false;
+	$scope.showFilters =true;
+ 	$('input[name="estrellas"]:checked').each(function() {
+   	$scope.stars.push(this.value);
 });
 };
 
 $scope.applyServices = function(){
-	$scope.applyFilters = false;	
-	$( "#estrellas" ).css("background-color","#19a08c");
-	$( "#servicios" ).css("background-color","#19a08c");
-	$( "#pago" ).css("background-color","#19a08c");
-	$( "#precio" ).css("background-color","#19a08c");
-	
- 	$( "#panelservicios" ).addClass('hidden');
-	var wifi = $( "#wifi").find(":selected").text();
+	$( "#panelservicios" ).addClass('hidden');
+	$scope.obligatorio = [];
+	$scope.selservice = [];
+	$scope.deseable = [];
+	$scope.applyFilters = false;
+	$scope.showFilters =true;	
+ 	var wifi = $( "#wifi").find(":selected").text();
 	var pileta = $( "#pileta").find(":selected").text();
 	var recepcion = $( "#recepcion").find(":selected").text();
 	var playa = $( "#playa").find(":selected").text();
@@ -346,6 +349,7 @@ $scope.showVacaciones = function(){
 	$( "#mensaje3" ).removeClass('hidden');
 	$( "#perfiles" ).removeClass('hidden');
  	$( "#panelvacaciones" ).removeClass('hidden');
+	$( "#vacaciones" ).addClass('active');
         $( "#mensaje" ).addClass('hidden');        
 	$( "#panelbotones" ).removeClass('hidden');
 	$( "#panelfiltros" ).removeClass('hidden');
@@ -353,9 +357,7 @@ $scope.showVacaciones = function(){
 	$( "#precio" ).removeClass('hidden');
 	$( "#pago" ).removeClass('hidden');
 	$( "#estrellas" ).removeClass('hidden');
-	$( "#trabajo" ).css("background-color","#adad85");
-	$( "#lujo" ).css("background-color","#adad85");
-	$( "#personalizado" ).css("background-color","#adad85");
+	
   };
 
 $scope.showTrabajo = function(){
@@ -395,13 +397,14 @@ $scope.showPersonalizado = function(){
 		$scope.customOrder = ['-price','-stars'];
 		$scope.hotels =[];
 		hotelsFactory.getHotelsByDestination($stateParams.searchString).then(function(d) {
-			h.forEach(function(item) {
+			d.forEach(function(item) {
    			$scope.hotels.push(item);
 });			    
 		  });
 var precio = 'Precio';
 var estrellas = 'Estrellas';
 $scope.applyFilters = false;
+$scope.showFilters =false;
 $scope.options = [precio,estrellas];
 $scope.selservice = [ ];
 $scope.ops = [ ];
@@ -412,6 +415,7 @@ $scope.pagos = [ ];
 $scope.ordenadores2= [ ];
 $scope.services = [ ];	
 $scope.algo = [ ];
+$scope.noche;
 $scope.algo2 = [ ];	
 $scope.stars = [ ];
 	}; 
@@ -422,26 +426,32 @@ $scope.stars = [ ];
 appDespe.config([
 '$stateProvider',
 '$urlRouterProvider',
-function($stateProvider, $urlRouterProvider) {
+'$locationProvider',
+function($stateProvider, $urlRouterProvider,$locationProvider) {
 
   $stateProvider
     .state('home', {
-      url: '/home',
+      url: '/despegar/home',
       templateUrl: 'template/form.html',
       controller: 'HomeController'
     });
 
+$stateProvider
+    .state('detail', {
+      url: '/despegar/detail',
+      templateUrl: 'template/detail.html'
+    });
+
   $stateProvider
     .state('hotel', {
-      url: '/hotel',
+      url: '/despegar/hotel',
       templateUrl: 'template/hotel3.html',
       controller: 'HotelController',
       params: { searchString: {} }
     });
-
-  $urlRouterProvider.otherwise('home');
+  $urlRouterProvider.otherwise('/despegar/home');
 }]);
-
+/*
 var h = [ 
 		{destination: "RIO",		
 		name: "H1",
@@ -473,7 +483,7 @@ var h = [
 		price: 34}
 	
 	];
-
+*/
 appDespe.factory('hotels', [function(){
   var o = {
     hotels: []

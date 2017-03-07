@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="datepicker-ci" class="col-lg-2 control-label glyphicon glyphicon-th">Por favor, ingresa una fecha de entrada.</label>
+    <label for="datepicker-ci" class="col-lg-2 control-label">Por favor, ingresa una fecha de entrada.</label>
     <div class="col-lg-10" style="width:30%;">
       <input type="text"  class="col-lg-10" placeholder="checkin"  id="datepicker-ci"></input>
     </div>

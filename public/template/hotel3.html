@@ -1,125 +1,34 @@
 
 <html>
 <head>
- <style>
-body {
-  padding-top:25px;
-  background-color:#e0ebeb;
-  margin-left:10px;
-  margin-right:10px;
-}
 
-.container3 {
-margin-top:10%;
-padding:2%;
-  -webkit-border-radius:6px;
-  -moz-border-radius:6px;
-  border-radius:6px;
-  background-color:#FAFAFA;
-}
-.container2 {
-margin-top:5%;
-padding:2%;
-  float:left;  
-  width:650px; 
-  -webkit-border-radius:6px;
-  -moz-border-radius:6px;
-  border-radius:6px;
-  background-color:#FAFAFA;
-}
-.container {
-  float:left;  
-  max-width:300px;
-  margin:15 px;
-  -webkit-border-radius:6px;
-  -moz-border-radius:6px;
-  border-radius:6px;
-  background-color:#FAFAFA;
-}
-.head {
-  -webkit-border-radius:6px 6px 0px 0px;
-  -moz-border-radius:6px 6px 0px 0px;
-  border-radius:6px 6px 0px 0px;
-  background-color:#2ABCA7;
-  color:#FAFAFA;
-}
-h2 {
-font-size: 130%;  
-text-align:center;
-  padding:18px 0 18px 0;
-  font-size: 1.4em;
-}
-input {
-  font-size: 1em;
-  font-family: 'Source Sans Pro',arial,sans-serif;
-  border: 1px solid #cecece;
-  background: #19a08c;
-  color:#FAFAFA;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-::-webkit-input-placeholder {
-   color: #FAFAFA;
-}
-:-moz-placeholder {
-   color: #FAFAFA;  
-}
-::-moz-placeholder {
-   color: #FAFAFA; 
-}
-:-ms-input-placeholder {  
-   color: #FAFAFA;  
-}
-button {
-  background-color:#19a08c;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid #2ABCA7;
-  -webkit-transition: .5s;
-  transition: .5s;
-  display: inline-block;
-  cursor: pointer;
-  color:#fff;
-}
-button:hover, .button:hover {
-  background:#19a08c;
-}
-</style>
 </head>
-<body>
-<h1 style="font-size:160%;">Resultados de tu búsqueda</h1>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<div id="all"  style="width:100%;">
-	<div id="image" style="width:20%;margin-left:35px;">
-		<div class="container">
-			<p>
-			<p>
-			<label >Ciudad</label>		
-			<input type="text" name="name" placeholder="Cancun" /><br/>
-			<label for="datepicker-ci">Fecha de entrada.</label>
-			<input type="text"  id="datepicker-ci" placeholder="10/05/2018"></input><br/>
-			<label for="datepicker-co">Fecha de salida.</label>
-			<input type = "text"  id = "datepicker-co" placeholder="17/05/2018"></input><br/>
+<body style="background: #d7d7d7;">
+<br>
+<br>
+<h1 style="font-size:200%;margin:1%;padding:3%;background: #d7d7d7;">Resultados de tu búsqueda</h1>
+<br>
+<br>
+
+<div id="all"  style="width:100%;" class="container">
+
+	<div class ="col-lg-3"id="image">
+		<div class="fondo">
+			<label >Ciudad</label><br>		
+			<input type="text" name="name" placeholder="Cancun" /><br>
+			<label for="datepicker-ci">Fecha de entrada.</label><br>
+			<input type="text"  id="datepicker-ci" placeholder="10/05/2018"></input><br>
+			<label for="datepicker-co">Fecha de salida.</label><br>
+			<input type = "text"  id = "datepicker-co" placeholder="17/05/2018"></input><br>
 			<label>Habitaciones</label>
-			<select  class="show-tick form-control">
+			<select  class="show-tick form-control" style="width:150px;">
 				<option>1</option>
 				<option>2</option>
 				<option>3</option>
 				<option>4</option>
 			</select>
 			<label>Pasajeros</label>
-			<select class="show-tick form-control">
+			<select class="show-tick form-control" style="width:150px;">
 				<option>1</option>
 				<option>2</option>
 				<option>3</option>
@@ -128,130 +37,11 @@ button:hover, .button:hover {
 				<option>6</option>
 				<option>7</option>
 				<option>8</option>
-		       </select>
-		       <button type="submit">Buscar</button>
+		       </select><br>
+		       <button class="btn btn-info"type="submit">Buscar</button>
 	  	</div>
-	</div>
-	<div id="botonera" class="btn-toolbar" role="toolbar" style="width:80%;">
-		<label style="margin-left:1%;font-size: 130%">Seleccione un perfil de viaje</lable><p>
-		<div class="btn-group containerPerfil" style="font-size: 130%; margin-left:15px;"> 
-			<label class="hidden" id="mensaje3">Perfil: </label>
-			<input  type="button"  ng-click="showVacaciones()" value="Vacaciones" id="vacaciones"/>
-			<input  type="button"  ng-click="showTrabajo()" value="Trabajo" id="trabajo" />
-			<input  type="button"  ng-click="showLujo()" value="Lujo" id="lujo"/>
-			<input  type="button"  ng-click="showPersonalizado()" value="Personalizado" id="personalizado"/>
-		</div>
-		<p>
-<p>
-<p>
-<p>
-<p>
-<p>
-<p>
-		<div id="filtros" class="container3 hidden">
-		<div class="btn-group hidden" id="panelvacaciones" style="font-size: 120%; margin-left:15px;">
-			<label id="mensaje2">Filtros: </label>
-			<input  type="button"  ng-click="showPrecio()" value="Precio" id="precio"/>
-			<input  type="button"  ng-click="showStars()" value="Estrellas" id="estrellas" />
-			<input  type="button"  ng-click="showServicios()" value="Servicos" id="servicios"/>
-			<input  type="button"  ng-click="showPago()" value="Forma de pago" id="pago"/>
-		</div>
-		<p>
-		<div class="btn-group hidden container3" id="panelprecio" style="font-size: 120%; margin-left:15px;">
-			<label id="mensaje2">  Precio por noche:</label>			
-			<input  type="text" value="Precio por noche" id="precio" ng-model="precio"/>
-			<input  type="button" ng-click="applyPrecio()" value="Aplicar" id="pricevalue" />
-		</div>
-		<p>
-		<div class="btn-group hidden container3" id="panelestrella" style="font-size: 100%;margin-left:25%;margin-top:3%;">
-			<p>			
-			<input type="checkbox" name="estrellas" value="1" >1</input>
-			<input type="checkbox" name="estrellas" value="2" >2</input>
-			<input type="checkbox" name="estrellas" value="3" >3</input>
-			<input type="checkbox" name="estrellas" value="4" >4</input>
-			<input type="checkbox" name="estrellas" value="5" >5</input>
-			<input  type="button" ng-click="applyStars()" value="Aplicar" />
-		</div>
-		<div class="btn-group hidden container3" id="panelpago" style="font-size: 100%;margin-left:5%;margin-top:3%;">
-			<p>			
-			<input type="checkbox" name="pago" value="pago efectivo">Pago en efectivo</input>
-			<input type="checkbox" name="pago" value="pago en el hotel">Pago en el hotel</input>
-			<input type="checkbox" name="pago" value="pago en cuotas">Pago en Cuotas</input>
-			<input  type="button"  ng-click="applyPago()" value="Aplicar" />
-		</div>
-		<div class="btn-group hidden container3" id="panelservicios" style="font-size: 100%;margin-left:5%;margin-top:3%;">
-			<lable>WIFI</lable>
-			<select name="servicios" id="wifi">
-				<option></option>
-				<option>Impresindible</option>
-				<option>Deseable</option>
-			</select>
-			<lable>recepcion 24 hs</lable>
-			<select name="servicios" id="recepcion">
-				<option></option>
-				<option>Impresindible</option>
-				<option>Deseable</option>
-			</select>
-			<p>
-			<lable>pileta</lable>
-			<select name="servicios" id="pileta">
-				<option></option>
-				<option>Impresindible</option>
-				<option>Deseable</option>
-			</select>
-			<lable>playa</lable>
-			<select  name="servicios" id="playa">
-				<option></option>
-				<option>Impresindible</option>
-				<option>Deseable</option>
-			</select>
-			<input  type="button" ng-click="applyServices()" value="Aplicar" />
-		</div>
-		<div id="resultados" class ="container3"style="margin-left:20px;margin-top:35px;font-size:100%;">
-			<input  type="button" ng-click="aplicarFiltros()" value="Actualizar Resultados" />
-		</div>
-		</div>
-		<div style="font-size:100%; margin-top:5%;" class="container2">
-			<p>
-			<p>
-			<p>
-			<p>				
-			<div id="prioridad" style="margin-left:35px;font-size:90%;" class="hidden">
-						
-				<label>Criterio principal para ordenar </label>      					
-				<select class="form-control" ng-change="enableFirstValue()"  ng-model="ops" id="firstOrder" style="width:150px">
-					<option></option>					
-					<option ng-repeat="op in options" >{{op}}</option>
-				</select>
-				<select class="selectpicker form-control" data-width="auto" id="firstValue" disabled style="width:150px">
-					<option ng-repeat="op in valueOptions" >{{op}}</option>
-				</select>
-				<div id="segundoCriterio" = class="hidden">
-					<label>Criterio secundario para ordenar </label>
-					<select class="selectpicker form-control" id="secOrder" disabled ng-model="algo2" ng-change="enableSecondValue()" style="width:150px">
-						<option></option>
-						<option ng-repeat="opt in ordenadores2" >{{opt}}</option>			
-					</select>
-					<select class="selectpicker form-control" id="secValue" disabled style="width:150px">
-						<option></option>
-						<option ng-repeat="opt in valueOptions2" >{{opt}}</option>
-					</select>
-				</div>
-			<p>
-			<p>
-			<p>
-			<input  type="button" ng-click="ordenar()" value="Ordenar" id="ordenar" />
-		  	</div>
-			<input  type="button" ng-click="aplicarOrden()" value="Mostrar opciones de ordenamiento" id="opcionesOrdenamiento" />
-			<p>
-			<p>
-			<p>
-			<p>
-		</div>	
-	</div>
-	<div id="bottom">
-		<div class="container" id="services" style="width:25%;margin-left:35px;margin-top:35px;font-size:100%;">
-			<label style="font-size:160%;">Filtros seleccionados</label>
+		<div ng-if="showFilters" id="services" class ="col-lg-1" stye="padding-top:5%;">
+			<label style="font-size:120%;">Filtros seleccionados</label>
 			<div ng-if="pagos.length>0">
 			<label>Forma de pago: {{pagos}}</label>
 			</div>
@@ -262,21 +52,170 @@ button:hover, .button:hover {
 			<label>Servicios: {{selservice}}</label>
 			</div>
 			<div ng-if="precio.length>0">
-			<label>Precio por noche: {{precio}}</label>
+			<label>Precio por noche: {{noche}}</label>
 			</div>
 		</div>
-		<div id="hotel-container"  style="margin-left:2%;margin-top:-2%;padding-top:5%;float:left;"> 
+	</div>
+	<div id="botonera" class="btn-toolbar col-lg-8" role="toolbar">
+		<label style="margin-left:1%;font-size: 130%">Seleccione un perfil de viaje</lable><p>
+ 		<div style="width:100%;"> 
+		    <input class="btn btn-primary" type="button" data-toggle="tab" ng-click="showVacaciones()" id="vacaciones" value="Vacaciones" style="width:25%;"></input>
+		    <input style="width:25%;" class="btn btn-primary" type="button" data-toggle="tab" ng-click="showTrabajo()"  id="trabajo" value="Trabajo"></input>
+		    <input style="width:22%;" class="btn btn-primary" type="button" data-toggle="tab" ng-click="showLujo()" id="lujo" value="Lujo"></input>
+		    <input style="width:22%;" class="btn btn-primary" type="button" data-toggle="tab" ng-click="showPersonalizado()" value="Personalizado" id="personalizado"></input>
+		 </div>
+		<div id="filtros" class=" hidden">
+					
+			<ul class="nav nav-tabs" id="panelvacaciones">
+				<li><a >Filtros:  </a></li>				
+				<li><a data-toggle="tab" ng-click="showPrecio()"   href="#panelprecio"  id="precio">Precio</a></li>
+				<li><a data-toggle="tab" ng-click="showStars()" href="#panelestrella"  id="estrellas" >Estrellas</a></li>
+				<li><a data-toggle="tab" ng-click="showServicios()" href="#panelservicios"  id="servicios">Servicios</a></li>
+				<li><a data-toggle="tab" ng-click="showPago()"  href="#panelpago" id="pago">Forma de Pago</a></li>
+			</ul>
+		<div class ="tab-content">
+			<div class="tab-pane fade fondofiltros" id="panelprecio" style="margin-top:2%;" >
+				<label id="mensaje2">  Precio por noche:</label>			
+				<input  type="text" value="Precio por noche" id="precio" ng-model="precio"/>
+				<input style="float:right" class="btn btn-info" type="button" ng-click="applyPrecio()" value="Aplicar" id="pricevalue" />
+			</div>
+
+			<div class="tab-pane fade fondofiltros" id="panelestrella" style="margin-top:2%;">
+							
+				<input type="checkbox" name="estrellas" value="1" style="margin-left:5%;" ><label class="glyphicon glyphicon-star"/></input>
+				<input type="checkbox" name="estrellas" value="2" style="margin-left:5%;"><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/></input>
+				<input type="checkbox" name="estrellas" value="3" style="margin-left:5%;"><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/></input>
+				<input type="checkbox" name="estrellas" value="4" style="margin-left:5%;"><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/></input>
+				<input type="checkbox" name="estrellas" value="5" style="margin-left:5%;"><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/></input>
+				<input class="btn btn-info" type="button" ng-click="applyStars()" value="Aplicar" style="float:right" />
+			</div>
+			<div class="tab-pane fade fondofiltros" id="panelpago" style="margin-top:2%;" >
+				<p>			
+				<input type="checkbox" name="pago" value="pago efectivo" style="margin-left:3%;" >Pago en efectivo</input>
+				<input type="checkbox" name="pago" value="pago en el hotel" style="margin-left:3%;">Pago en el hotel</input>
+				<input type="checkbox" name="pago" value="pago en cuotas" style="margin-left:3%;">Pago en Cuotas</input>
+				<input class="btn btn-info" type="button"  ng-click="applyPago()" value="Aplicar" style="float:right"/>
+			</div>
+			<div class="tab-pane fade fondofiltros" id="panelservicios" style="margin-top:2%;">
+				<table class="table table-condensed">
+					<tr>
+						<td>
+							<lable style="float:left; width:120px" > WIFI </lable>
+							<select name="servicios" id="wifi" class="show-tick form-control" style="width:150px;float:left">
+								<option></option>
+								<option>Impresindible</option>
+								<option>Deseable</option>
+							</select>						
+						</td>
+						<td>
+							<lable style="float:left;width:120px"> Recepcion 24 hs </lable>
+							<select name="servicios" id="recepcion" class="show-tick form-control" style="width:150px;float:left">
+								<option></option>
+								<option>Impresindible</option>
+								<option>Deseable</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<lable style="float:left;width:120px"> Pileta </lable>
+				<select name="servicios" id="pileta" class="show-tick form-control" style="width:150px;float:left">
+					<option></option>
+					<option>Impresindible</option>
+					<option>Deseable</option>
+				</select>
+						</td>
+						<td>
+<lable style="float:left;width:120px">Acceso a la Playa </lable>
+				<select  name="servicios" id="playa" class="show-tick form-control" style="width:150px;float:left">
+					<option></option>
+					<option>Impresindible</option>
+					<option>Deseable</option>
+				</select>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<lable style="float:left;width:120px"> Cancelación gratuita </lable>
+							<select name="servicios" id="cancelacion" class="show-tick form-control" style="width:150px;float:left">
+								<option></option>
+								<option>Impresindible</option>
+								<option>Deseable</option>
+							</select>
+						</td>
+					</tr>	
+				</table>
+				<input  class="btn btn-info" type="button" ng-click="applyServices()" value="Aplicar" style="float:right;margin-bottom:5%;"/>
+			</div>
+		</div>
+		<div id="resultados" style="margin-top:2%; ">
+			<input  class="btn btn-info" type="button" ng-click="aplicarFiltros()" value="Actualizar Resultados" />
+		</div>
+		</div>
+		<div>
+			<p>
+			<p>
+			<p>
+			<p>				
+			<div id="prioridad" style="margin-left:35px;font-size:90%;" class="hidden">
+								
+				<label style="float:left;">Criterio principal para ordenar  </label>      					
+				<select class="form-control" ng-change="enableFirstValue()"  ng-model="ops" id="firstOrder" style="width:150px; float:left;margin-left:1%;">
+					<option></option>					
+					<option ng-repeat="op in options" >{{op}}</option>
+				</select>
+				<select class="selectpicker form-control" data-width="auto" id="firstValue" disabled style="width:150px; float:left;margin-left:1%;">
+					<option ng-repeat="op in valueOptions" >{{op}}</option>
+				</select>
+				<br>
+				<br>
+				<div id="segundoCriterio" = class="hidden">
+					<label style="float:left;">Criterio secundario para ordenar </label>
+					<select class="selectpicker form-control" id="secOrder" disabled ng-model="algo2" ng-change="enableSecondValue()" style="width:150px;float:left;margin-left:2%;">
+						<option></option>
+						<option ng-repeat="opt in ordenadores2" >{{opt}}</option>			
+					</select>
+					<select class="selectpicker form-control" id="secValue" disabled style="width:150px;float:left;margin-left:2%;">
+						<option></option>
+						<option ng-repeat="opt in valueOptions2" >{{opt}}</option>
+					</select>
+				</div>			
+			<input  style ="margin-left:2%;" class=" btn btn-info" type="button" ng-click="ordenar()" value="Ordenar" id="ordenar" />
+		  	</div>
+
+			<input  class="btn btn-info" style="margin-top:2%" type="button" ng-click="aplicarOrden()" value="Mostrar opciones de ordenamiento" id="opcionesOrdenamiento" />
+
+
+<div id="hotel-container"  style="margin-top:8%;"> 
 			<div ng-repeat="h in hotels | filter:customFilter  |orderBy:customOrder" class="list-group">		
-				<div id="datoshotel2" class="list-group-item active">
-				     <img src="hotel.jpg" class="img-circle" height="100" width="100"/>					
-					<label>Hotel  {{h.name}}</label>
-					<label>Ciudad {{h.destination}}</label>
-					<label>Precio $ {{h.price}}</label>
-					<label>Cantidad de estrellas {{h.stars}}</label>
-					<label>Servicios: {{h.services}}</label>
+				<div id="datoshotel2" class="list-group-item active container" style="width:100%">
+				     	<div id="datos" class="col-lg-9">
+						<h3>{{h.name}}</h3>							
+						<h4>Hotel en {{h.destination}}</h4>
+						<h6>{{h.stars}} estrellas</h6>						
+						<label>Servicios: </label><br>
+						<spam class="small"ng-if="h.wifi">  * WIFI</spam>
+						<spam class="small" ng-if="h.pileta"> * Pileta</spam>
+						<spam class="small" ng-if="h.playa"> * Acceso a la playa</spam>
+						<spam class="small" ng-if="h.desayuno"> *  Desayuno</spam>
+						<spam class="small" ng-if="h.cancelacion"> * Cancelacion gratuita</spam>
+						<spam class="small" ng-if="h.recepcion">  * Recepcion 24 hs</spam>
+					</div>				
+					<div id="img" class="col-lg-3">
+						<br>
+						<img src="hotel.jpg" class="img-circle" height="130" width="130"/><br><br>
+						<a href={{h.url}} class="btn btn-info" role="button" target="_blank" style="float:right;padding-right:15%;margin-right:15%;">Ver Detalle</a>
+					</div>
 				</div>
 			</div>
+		   </div>
 		</div>
+	
+	</div>
+	<div id="bottom">
+		
+		
 	</div>
 </div>
 </body>

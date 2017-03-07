@@ -1,11 +1,13 @@
 var mongoose = require('mongoose');
 
-module.exports = function(app, mongoose) {
-
-	mongoose.model('Hotel', {
+module.exports = mongoose.model('Hotel', {
 		destination: String,		
 		name: String,
 		stars: Number,
-		services : [String],
+		wifi : Boolean,
+		desayuno: Boolean,
+		cancelacion: Boolean,
+		pileta: Boolean,
+		url: String,
 		price: Number});
-};
+

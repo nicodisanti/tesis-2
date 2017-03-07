@@ -14,10 +14,19 @@ exports.findAllHotels = function(req, res) {
 
 //GET - Return a Notebook with specified ID
 exports.findByDestination = function(req, res) {
-	Hotel.findOne({'destination' :req.params.destination}, function(err, hotel) {
+	Hotel.find({'destination' :req.params.destination}, function(err, hotel) {
     if(err) return res.send(500, err.message);
 
     console.log('GET /hotel/' + req.params.destination);
+		res.status(200).jsonp(hotel);
+	});
+};
+
+exports.deleteHotel = function(req, res) {
+	Hotel.deleteOne({'id' :req.params.id}, function(err, hotel) {
+    if(err) return res.send(500, err.message);
+
+    console.log('DELETE /hotel/' + req.params.id);
 		res.status(200).jsonp(hotel);
 	});
 };
@@ -32,7 +41,13 @@ exports.addHotel = function(req, res) {
 		destination:   req.body.destination,
 		price:  req.body.price,
 		stars:  req.body.stars,
-		services:  req.body.services
+		wifi:  req.body.wifi,
+		pileta: req.body.pileta,
+		desayuno: req.body.desayuno,
+		cancelacion: req.body.cancelacion,
+		recepcion: req.body.recepcion,
+		playa: req.body.playa,
+		url: req.body.url
 	});
 
 	hotel.save(function(err, notebook) {
