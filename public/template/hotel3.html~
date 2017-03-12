@@ -126,7 +126,7 @@
 				</select>
 						</td>
 						<td>
-<lable style="float:left;width:120px">Acceso a la Playa </lable>
+<lable style="float:left;width:150px">Acceso a la Playa </lable>
 				<select  name="servicios" id="playa" class="show-tick form-control" style="width:150px;float:left">
 					<option></option>
 					<option>Imprescindible</option>

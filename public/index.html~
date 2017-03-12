@@ -22,7 +22,7 @@ border-top-style: solid;
 font-size:15px;
 font-style: normal;
 font-weight: normal;
-color:#ffffb3;
+color:#ffff99;
 }
 .filtros2{
 padding-top:3%;
@@ -59,9 +59,9 @@ margin:2% auto;
 </style>
 </head>
   <body ng-app="testTesis">
-<img src="despegar.png"/>
+<img src="despegar.png" style="width:100%"/>
 <div id="searchbox">
-    <div ui-view></div>
+    <div ui-view></div> style="width:100%"
 </div> 
 <img src="footer.png"/> 
 </body>
