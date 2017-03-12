@@ -17,8 +17,12 @@
 <style>
 
 .serviciosDetalle{
-
-
+border-top-color: #f1f1f1;
+border-top-style: solid;
+font-size:15px;
+font-style: normal;
+font-weight: normal;
+color:#ffffb3;
 }
 .filtros2{
 padding-top:3%;
@@ -33,7 +37,7 @@ background: #d7d7d7
 
 .fondo {
   margin:2% auto;
-  padding:4%;
+  padding:10%;
   -webkit-border-radius:9px;
   -moz-border-radius:9px;
   border-radius:9px;
@@ -41,7 +45,7 @@ background: #d7d7d7
 }
 
 li{
-    border-left:1px;
+border-left:1px;
 border-color:#E3E3E3;
 }
 .fondofiltros {

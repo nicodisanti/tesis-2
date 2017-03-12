@@ -69,11 +69,12 @@
 				<li><a >Filtros:  </a></li>				
 				<li><a data-toggle="tab" ng-click="showPrecio()"   href="#panelprecio"  id="precio">Precio</a></li>
 				<li><a data-toggle="tab" ng-click="showStars()" href="#panelestrella"  id="estrellas" >Estrellas</a></li>
-				<li><a data-toggle="tab" ng-click="showServicios()" href="#panelservicios"  id="servicios">Servicios</a></li>
+				<li><a class="hidden" id="serviciosVacaciones" data-toggle="tab" ng-click="showServicios()" href="#panelservicios"  id="servicios">Servicios</a></li>
+				<li><a class="hidden" id="serviciosTrabajo" data-toggle="tab" ng-click="showServicios()" href="#panelserviciosTrabajo"  id="servicios">Servicios</a></li>
 				<li><a data-toggle="tab" ng-click="showPago()"  href="#panelpago" id="pago">Forma de Pago</a></li>
 			</ul>
 		<div class ="tab-content">
-			<div class="tab-pane fade fondofiltros" id="panelprecio" style="margin-top:2%;" >
+			<div class="tab-pane fade fondofiltros in active" id="panelprecio" style="margin-top:2%;" >
 				<label id="mensaje2">  Precio por noche:</label>			
 				<input  type="text" value="Precio por noche" id="precio" ng-model="precio"/>
 				<input style="float:right" class="btn btn-info" type="button" ng-click="applyPrecio()" value="Guardar" id="pricevalue" />
@@ -107,7 +108,7 @@
 							</select>						
 						</td>
 						<td>
-							<lable style="float:left;width:120px"> Recepcion 24 hs </lable>
+							<lable style="float:left;width:150px"> Recepcion 24 hs </lable>
 							<select name="servicios" id="recepcion" class="show-tick form-control" style="width:150px;float:left">
 								<option></option>
 								<option>Imprescindible</option>
@@ -125,7 +126,7 @@
 				</select>
 						</td>
 						<td>
-<lable style="float:left;width:120px">Acceso a la Playa </lable>
+<lable style="float:left;width:150px">Acceso a la Playa </lable>
 				<select  name="servicios" id="playa" class="show-tick form-control" style="width:150px;float:left">
 					<option></option>
 					<option>Imprescindible</option>
@@ -147,8 +148,51 @@
 				</table>
 				<input  class="btn btn-info" type="button" ng-click="applyServices()" value="Guardar" style="margin-left:90%;"/>
 			</div>
+
+<div class="tab-pane fade fondofiltros" id="panelserviciosTrabajo" style="margin-top:2%;">
+				<table class="table table-condensed">
+					<tr>
+						<td>
+							<lable style="float:left; width:120px" > WIFI </lable>
+							<select name="servicios" id="wifi" class="show-tick form-control" style="width:150px;float:left">
+								<option></option>
+								<option>Imprescindible</option>
+								<option>Deseable</option>
+							</select>						
+						</td>
+						<td>
+							<lable style="float:left;width:120px"> Recepcion 24 hs </lable>
+							<select name="servicios" id="recepcion" class="show-tick form-control" style="width:150px;float:left">
+								<option></option>
+								<option>Imprescindible</option>
+								<option>Deseable</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<lable style="float:left;width:120px"> Cochera </lable>
+				<select name="servicios" id="pileta" class="show-tick form-control" style="width:150px;float:left">
+					<option></option>
+					<option>Imprescindible</option>
+					<option>Deseable</option>
+				</select>
+						</td>
+						<td>
+<lable style="float:left;width:120px">Traslado Aeropuerto </lable>
+				<select  name="servicios" id="playa" class="show-tick form-control" style="width:150px;float:left">
+					<option></option>
+					<option>Imprescindible</option>
+					<option>Deseable</option>
+				</select>
+						</td>
+					</tr>
+
+				</table>
+				<input  class="btn btn-info" type="button" ng-click="applyServices()" value="Guardar" style="margin-left:90%;"/>
+			</div>
 		</div>
-		<div id="resultados" style="margin-top:2%;padding-bottom:2%;padding-bottom:2%;border-bottom-style: solid;border-bottom-color: #f1f1f1;border-top-style: solid;border-top-color: #f1f1f1;">
+		<div id="resultados" style="margin-top:2%;padding-bottom:2%;padding-bottom:2%;border-top-style: solid;border-top-color: #f1f1f1;">
 			<input  class="btn btn-info" type="button" ng-click="aplicarFiltros()" value="Aplicar Filtros Seleccionados" />
 		</div>
 		</div>
@@ -183,31 +227,31 @@
 			<input  class="btn btn-info" style="margin-top:2%" type="button" ng-click="aplicarOrden()" value="Mostrar opciones de ordenamiento" id="opcionesOrdenamiento" />
 
 
-<div id="hotel-container"  style="margin-top:8%;"> 
+<div id="hotel-container"  style="margin-top:4%;"> 
 			<div ng-repeat="h in hotels | filter:customFilter  |orderBy: customOrder" class="list-group">		
 				<div id="datoshotel2" class="list-group-item active container" style="width:100%">
 				     	<div id="img" class="col-lg-3">
 						<br>
-						<img src="hotel.jpg" class="img-circle" height="130" width="130" style="margin-left:5%:"/><br><br>
+						<img src="hotel.jpg" class="img-circle" height="130" width="130" style="margin-left:5%"/><br><br>
 					</div>
 					<div id="datos" class="col-lg-6">
 						<h4>{{h.name}}</h4>							
 						<h5>Hotel en {{h.destination}}</h5>
 						<h6><label class="glyphicon glyphicon-star"/> {{h.stars}} estrellas</h6>						
+						
 						<br>
-						<h5>Servicios: </h5>
 						<div class="serviciosDetalle">						
-						<spam ng-if="h.wifi">  * WIFI</h5>
-						<spam class="small" ng-if="h.pileta"> * Pileta</spam>
-						<spam class="small" ng-if="h.playa"> * Acceso a la playa</spam>
-						<spam class="small" ng-if="h.desayuno"> *  Desayuno</spam>
-						<spam class="small" ng-if="h.cancelacion"> * Cancelacion gratuita</spam>
-						<spam class="small" ng-if="h.recepcion">  * Recepcion 24 hs</spam>
+						<spam ng-if="h.wifi"> -- </span> WIFI</spam>
+						<spam class="small" ng-if="h.pileta"> -- Pileta</spam>
+						<spam class="small" ng-if="h.playa"> --  Acceso a la playa</spam>
+						<spam class="small" ng-if="h.desayuno"> -- Desayuno</spam>
+						<spam class="small" ng-if="h.cancelacion"> -- Cancelacion gratuita</spam>
+						<spam class="small" ng-if="h.recepcion"> -- Recepcion 24 hs</spam>
 						</div>
 					</div>
-					<div class="col-lg-3" style="padding-top:5%;background-color: #e6f2ff; color:#337ab7;">
+					<div class="col-lg-3" style="padding-top:5%;background-color: #ffff99; color:#337ab7;">
 					<div style="margin-left:10%;">Precio $ <label ng-bind="h.price"/> </div>
-					<a href={{h.url}} class="btn btn-info" role="button" target="_blank" style="float:right;padding-right:15%;margin-right:15%;margin-bottom:30%;margin-top:10%;">Ver Detalle</a>	
+					<a href={{h.url}} class="btn btn-danger" role="button" target="_blank" style="float:right;padding-right:15%;margin-right:15%;margin-bottom:30%;margin-top:10%;">Ver Detalle</a>	
 					</div>
 				</div>
 			</div>

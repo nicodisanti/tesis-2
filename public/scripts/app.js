@@ -360,6 +360,7 @@ $scope.showVacaciones = function(){
 	$( "#perfiles" ).removeClass('hidden');
  	$( "#panelvacaciones" ).removeClass('hidden');
 	$( "#vacaciones" ).addClass('active');
+	$( "#trabajo" ).removeClass('active');
         $( "#mensaje" ).addClass('hidden');        
 	$( "#panelbotones" ).removeClass('hidden');
 	$( "#panelfiltros" ).removeClass('hidden');
@@ -367,44 +368,70 @@ $scope.showVacaciones = function(){
 	$( "#precio" ).removeClass('hidden');
 	$( "#pago" ).removeClass('hidden');
 	$( "#estrellas" ).removeClass('hidden');
-	$( "#filtrosTrabajo" ).addClass('hidden');
-	
+	$( "#serviciosTrabajo" ).addClass('hidden');
+	$( "#serviciosVacaciones" ).removeClass('hidden');
   };
 
 $scope.showTrabajo = function(){
-	$( "#panelservicios" ).addClass('hidden');
-	$( "#panelprecio" ).addClass('hidden');
-	$( "#panelpago" ).addClass('hidden');
-	$( "#panelestrella" ).addClass('hidden'); 	
-        $( "#paneltrabajo" ).addClass('hidden');
- 	$( "#trabajo" ).addClass('active');
+	$( "#filtros" ).removeClass('hidden');
+	$( "#mensaje2" ).removeClass('hidden');
+	$( "#mensaje3" ).removeClass('hidden');
+	$( "#perfiles" ).removeClass('hidden');
+ 	$( "#panelvacaciones" ).removeClass('hidden');
+	$( "#trabajo" ).addClass('active');
 	$( "#vacaciones" ).removeClass('active');
-	$( "#lujo" ).removeClass('active');
-	$( "#personalizado" ).removeClass('active');
-	$( "#filtrosTrabajo" ).removeClass('hidden');
-	$( "#filtros" ).addClass('hidden');
+        $( "#mensaje" ).addClass('hidden');        
+	$( "#panelbotones" ).removeClass('hidden');
+	$( "#panelfiltros" ).removeClass('hidden');
+	$( "#servicios" ).removeClass('hidden');
+	$( "#precio" ).removeClass('hidden');
+	$( "#pago" ).removeClass('hidden');
+	$( "#estrellas" ).removeClass('hidden');
+	$( "#serviciosTrabajo" ).removeClass('hidden');
+	$( "#serviciosVacaciones" ).addClass('hidden');
+	
   };
 
 $scope.showLujo = function(){
- 	$( "#panellujo" ).removeClass('hidden');
-	$( "#panelservicios" ).addClass('hidden');
-	$( "#panelprecio" ).addClass('hidden');
-	$( "#panelpago" ).addClass('hidden');
-	$( "#panelestrella" ).addClass('hidden');
- 	$( "#vacaciones" ).addClass('hidden');
-        $( "#trabajo" ).addClass('hidden');
-        $( "#personalizado" ).addClass('hidden');
+ 	$( "#filtros" ).removeClass('hidden');
+	$( "#mensaje2" ).removeClass('hidden');
+	$( "#mensaje3" ).removeClass('hidden');
+	$( "#perfiles" ).removeClass('hidden');
+ 	$( "#panelvacaciones" ).removeClass('hidden');
+	$( "#vacaciones" ).addClass('active');
+	$( "#trabajo" ).removeClass('active');
+        $( "#mensaje" ).addClass('hidden');        
+	$( "#panelbotones" ).removeClass('hidden');
+	$( "#panelfiltros" ).removeClass('hidden');
+	$( "#servicios" ).removeClass('hidden');
+	$( "#precio" ).removeClass('hidden');
+	$( "#pago" ).removeClass('hidden');
+	$( "#estrellas" ).removeClass('hidden');
+	$( "#serviciosTrabajo" ).addClass('hidden');
+	$( "#serviciosVacaciones" ).removeClass('hidden');
+
+	
   };
 
 $scope.showPersonalizado = function(){
-        $( "#panelservicios" ).addClass('hidden');
-	$( "#panelprecio" ).addClass('hidden');
-	$( "#panelpago" ).addClass('hidden');
-	$( "#panelestrella" ).addClass('hidden');
- 	$( "#panelpersonalizado" ).removeClass('hidden');
- 	$( "#vacaciones" ).addClass('hidden');
-        $( "#trabajo" ).addClass('hidden');
-        $( "#lujo" ).addClass('hidden');
+        $( "#filtros" ).removeClass('hidden');
+	$( "#mensaje2" ).removeClass('hidden');
+	$( "#mensaje3" ).removeClass('hidden');
+	$( "#perfiles" ).removeClass('hidden');
+ 	$( "#panelvacaciones" ).removeClass('hidden');
+	$( "#vacaciones" ).addClass('active');
+	$( "#trabajo" ).removeClass('active');
+        $( "#mensaje" ).addClass('hidden');        
+	$( "#panelbotones" ).removeClass('hidden');
+	$( "#panelfiltros" ).removeClass('hidden');
+	$( "#servicios" ).removeClass('hidden');
+	$( "#precio" ).removeClass('hidden');
+	$( "#pago" ).removeClass('hidden');
+	$( "#estrellas" ).removeClass('hidden');
+	$( "#serviciosTrabajo" ).addClass('hidden');
+	$( "#serviciosVacaciones" ).removeClass('hidden');
+
+	
   };
 
      function init(){
