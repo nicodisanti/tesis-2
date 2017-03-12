@@ -4,7 +4,7 @@ var appDespe = angular.module('testTesis', ['ui.router']);
 appDespe.factory('hotelsFactory',function($http){
 	return{
 		getHotelsByDestination: function(destination){
-			return $http.get('/api/hotel/'+destination).then(function (response) {
+			return $http.get('/api/hotel/CANCUN').then(function (response) {
 				return response.data;
       		});
 		}
@@ -58,6 +58,7 @@ $( "#ordenar").addClass('hidden');
 			$scope.customOrder.push(firstOrder);			
 			
 		}else{
+			firstValue = "-".concat(firstValue);
 			$scope.customOrder.push(firstValue);
 					}
 		if(!secOrder=="" ||!secValue==""){
@@ -68,6 +69,7 @@ $( "#ordenar").addClass('hidden');
 				}
 				$scope.customOrder.push(secOrder);
 			}else{
+				secValue = "-".concat(secValue);
 				$scope.customOrder.push(secValue);
 			}
 		}
@@ -244,7 +246,7 @@ $scope.applyServices = function(){
 	var pileta = $( "#pileta").find(":selected").text();
 	var recepcion = $( "#recepcion").find(":selected").text();
 	var playa = $( "#playa").find(":selected").text();
-	if(!playa.isEmpty&&!wifi.isEmpty&&!pileta.isEmpty&&!recepcion.isEmpty){
+	if(!$scope.options.includes("Servicios")&&!playa.isEmpty&&!wifi.isEmpty&&!pileta.isEmpty&&!recepcion.isEmpty){
 		$scope.options.push("Servicios");
 	}
 	if(wifi=="Impresindible" ){
@@ -327,15 +329,23 @@ $scope.customFilter = function(element) {
 		}
 		if(angular.isDefined($scope.obligatorio)&&$scope.obligatorio.length >0){
 		
-			var wifi =  false;
-			var playa =  false;		
+			var wifi =  true;
+			var playa =  true;
+			var recepcion = true;
+			var desayuno=true;		
 			if($scope.obligatorio.includes("WIFI")){
-				wifi = !element.wifi.isEmpty		
+				wifi = element.wifi		
+			}
+			if($scope.obligatorio.includes("desayuno")){
+				desayuno = element.desayuno		
 			}
 			if($scope.obligatorio.includes("playa")){
-				playa = !element.playa.isEmpty		
+				playa = element.playa		
 			}
-			filterServices = wifi && playa;
+			if($scope.obligatorio.includes("recepcion")){
+				recepcion = element.recepcion		
+			}
+			filterServices = wifi && playa && desayuno && recepcion;
 		}
 		return filterPrecio && filterServices && filterStars;
 	}
@@ -357,6 +367,7 @@ $scope.showVacaciones = function(){
 	$( "#precio" ).removeClass('hidden');
 	$( "#pago" ).removeClass('hidden');
 	$( "#estrellas" ).removeClass('hidden');
+	$( "#filtrosTrabajo" ).addClass('hidden');
 	
   };
 
@@ -366,9 +377,12 @@ $scope.showTrabajo = function(){
 	$( "#panelpago" ).addClass('hidden');
 	$( "#panelestrella" ).addClass('hidden'); 	
         $( "#paneltrabajo" ).addClass('hidden');
- 	$( "#vacaciones" ).addClass('hidden');
-        $( "#lujo" ).addClass('hidden');
-        $( "#personalizado" ).addClass('hidden');
+ 	$( "#trabajo" ).addClass('active');
+	$( "#vacaciones" ).removeClass('active');
+	$( "#lujo" ).removeClass('active');
+	$( "#personalizado" ).removeClass('active');
+	$( "#filtrosTrabajo" ).removeClass('hidden');
+	$( "#filtros" ).addClass('hidden');
   };
 
 $scope.showLujo = function(){
@@ -394,7 +408,7 @@ $scope.showPersonalizado = function(){
   };
 
      function init(){
-		$scope.customOrder = ['-price','-stars'];
+		$scope.customOrder = ['-pileta','-stars'];
 		$scope.hotels =[];
 		hotelsFactory.getHotelsByDestination($stateParams.searchString).then(function(d) {
 			d.forEach(function(item) {

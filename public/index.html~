@@ -15,16 +15,20 @@
      <script type="text/javascript" src="scripts/app.js"></script>
 
 <style>
-input {
--webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
--moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+
+.serviciosDetalle{
+
+
+}
+.filtros2{
+padding-top:3%;
+padding-bottom:3%;
+margin-top:15%;
+-webkit-border-radius:9px;
+  -moz-border-radius:9px;
+  border-radius:9px;
+width:100%;
+background: #d7d7d7
 }
 
 .fondo {
@@ -37,7 +41,8 @@ input {
 }
 
 li{
-    border-left:1px E3E3E3;
+    border-left:1px;
+border-color:#E3E3E3;
 }
 .fondofiltros {
 margin:2% auto;
