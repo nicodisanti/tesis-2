@@ -6,12 +6,10 @@ appDespe.factory('hotelsFactory',function($http){
 		getHotelsByDestination: function(destination){
 			return $http.get('/api/hotel/CANCUN').then(function (response) {
 				return response.data;
-      		});
+      			});
 		}
 	}
 });
-
-
 
 appDespe.controller('HomeController', function($scope,hotelsFactory,$state){
 
@@ -23,117 +21,44 @@ $scope.findHotels =function (){
 
 appDespe.controller('HotelController', function($scope,filterFilter,hotelsFactory,$stateParams){
 
+$scope.generateRanking=function(){ 
+
+	var desde =0;
+	var hasta =0;
+
+	if(angular.isDefined($scope.preciodesde)&&$scope.preciodesde>=0){
+			desde= $scope.preciodesde;
+	}
+	if(angular.isDefined($scope.preciohasta)&&$scope.preciohasta>=0){
+			hasta=$scope.preciohasta;
+	}
+
+
+}
+
 $scope.ordenar=function(){ 
-$( "#prioridad").addClass('hidden');
-$( "#opcionesOrdenamiento").removeClass('hidden');	
-$( "#ordenar").addClass('hidden');
 
-	var firstOrder = $('#firstOrder option:selected').text();
-	var firstValue = $('#firstValue option:selected').text();
-	if(firstOrder=="Precio"){
-		firstOrder="price";
-	}
+	$scope.customOrder =  [ ]; 
+	var firstOrder = $('#order option:selected').text();
 	
-	if(firstOrder=="Estrellas"){
-		firstOrder="stars";
+	if(firstOrder=="Por preferencias"){
+		this.generateRanking();		
+		$scope.customOrder.push("-ranking");
 	}
-	var secOrder = $('#secOrder option:selected').text();
-	var secValue = $('#secValue option:selected').text();
-	
-	if(secOrder=="Precio"){
-		secOrder="price";
+
+	if(firstOrder=="Precio mayor a menor"){
+		$scope.customOrder.push("-price");
 	}
-	
-	if(secOrder=="Estrellas"){
-		secOrder="stars";
+	if(firstOrder=="Precio menor a mayor"){
+		$scope.customOrder.push("price");
 	}
-	
-	$scope.customOrder = [];
-	var customOrder = "";
-	if(!firstOrder=="" || !firstValue==""){
-		if(firstOrder!='Servicios'){
-			if(firstValue=="Mayor a Menor"){
-					firstOrder = "-".concat(firstOrder);
-			}
-			$scope.customOrder.push(firstOrder);			
-			
-		}else{
-			firstValue = "-".concat(firstValue);
-			$scope.customOrder.push(firstValue);
-					}
-		if(!secOrder=="" ||!secValue==""){
-			
-			if(secOrder!='Servicios'){
-				if(secValue=="Mayor a Menor"){
-					secOrder = "-".concat(secOrder);
-				}
-				$scope.customOrder.push(secOrder);
-			}else{
-				secValue = "-".concat(secValue);
-				$scope.customOrder.push(secValue);
-			}
-		}
-		console.log($scope.customOrder);
+	if(firstOrder=="Estrellas menor a mayor"){
+		$scope.customOrder.push("stars");
+	}
+	if(firstOrder=="Estrellas mayor a menor"){
+		$scope.customOrder.push("-stars");
 	}
 }
-
-$scope.enableFirstValue=function(){ 
-	
-	$scope.valueOptions = [];
-	$scope.valueOptions2 = [];
-	$scope.ordenadores2 = [];
-
-	$( "#segundoCriterio").addClass('hidden');	
-	var selectedValue = $('#firstOrder option:selected').text();
-	if(selectedValue =='Servicios'){
-		$scope.selservice.forEach((function(item) {
-			$scope.valueOptions.push(item);	
-		}
-		));
-		$( "#segundoCriterio").removeClass('hidden');
-		$( "#secOrder").removeAttr('disabled'); 
-	
-		$scope.ordenadores2.push("Estrellas");
-		$scope.ordenadores2.push("Precio");
-		$scope.valueOptions2.push("Mayor a Menor");
-		$scope.valueOptions2.push("Menor a Mayor");			     	
-	
-	}else{
-		if(selectedValue!=""){
-
-		$scope.valueOptions.push("Mayor a Menor");
-		$scope.valueOptions.push("Menor a Mayor");
-		if(angular.isDefined($scope.selservice)&&$scope.selservice.length>0){
-			$( "#segundoCriterio").removeClass('hidden');
-			$( "#secOrder").removeAttr('disabled');
-			$scope.ordenadores2.push("Servicios");
- 			$scope.selservice.forEach((function(item) {
-				$scope.valueOptions2.push(item);	
-				}
-			));
-		}
-		}	
-	}
-	$( "#firstValue").removeAttr('disabled'); 
-}
-
-$scope.enableSecondValue=function(){
-$( "#secValue").removeAttr('disabled');
-}
-
-$scope.enableSecOrder=function(){
-	$( "#secOrder").removeAttr('disabled');
-}
-
-$scope.aplicarOrden = function(){
-
-$("#prioridad").removeClass('hidden');
-var showServices = angular.isDefined($scope.services);
-$scope.showServices=showServices;
-$( "#opcionesOrdenamiento").addClass('hidden');	
-$( "#ordenar").removeClass('hidden');	
-
-};
 
 $scope.showProfiles = function(){
 	$( "#resultados" ).removeClass('hidden');        
@@ -211,9 +136,11 @@ $scope.showPago = function(){
 $scope.applyPrecio = function(){
 	$scope.applyFilters = false;
 	$scope.showFilters =true;
- 	$scope.noche=$scope.precio;
-	$( "#panelprecio" ).addClass('hidden');      	
-  };
+ 	$scope.desde=$scope.preciodesde;
+	$scope.hasta=$scope.preciohasta;
+	$( "#panelprecio" ).addClass('hidden');
+	this.aplicarFiltros();
+};
 
 $scope.applyPago = function(){
 	$( "#panelpago" ).addClass('hidden');
@@ -223,6 +150,7 @@ $scope.applyPago = function(){
 	$('input[name="pago"]:checked').each(function() {
 	   $scope.pagos.push(this.value);
 	});
+	this.aplicarFiltros();
 };
 
 $scope.applyStars = function(){
@@ -232,7 +160,8 @@ $scope.applyStars = function(){
 	$scope.showFilters =true;
  	$('input[name="estrellas"]:checked').each(function() {
    	$scope.stars.push(this.value);
-});
+	});
+this.aplicarFiltros();
 };
 
 $scope.applyServices = function(){
@@ -240,6 +169,8 @@ $scope.applyServices = function(){
 	$scope.obligatorio = [];
 	$scope.selservice = [];
 	$scope.deseable = [];
+	$scope.obligatorioName = [];
+	$scope.deseableName = [];
 	$scope.applyFilters = false;
 	$scope.showFilters =true;	
  	var wifi = $( "#wifi").find(":selected").text();
@@ -249,48 +180,55 @@ $scope.applyServices = function(){
 	if(!$scope.options.includes("Servicios")&&!playa.isEmpty&&!wifi.isEmpty&&!pileta.isEmpty&&!recepcion.isEmpty){
 		$scope.options.push("Servicios");
 	}
-	if(wifi=="Impresindible" ){
+	if(wifi=="Imprescindible" ){
 		if(!$scope.selservice.includes("wifi")){
 			$scope.obligatorio.push("wifi");
+			$scope.obligatorioName.push("Wifi");
 			$scope.selservice.push("wifi");
 		}		
 	}
 	if(wifi =="Deseable" ){
 		if(!$scope.selservice.includes("wifi")){
 		$scope.deseable.push("wifi");
+		$scope.deseableName.push("Wifi");
 		$scope.selservice.push("wifi");
 		}		
 				
 	}		
  	 
-	if(pileta=="Impresindible" ){
+	if(pileta=="Imprescindible" ){
 		if(!$scope.selservice.includes("pileta")){
-			$scope.obligatorio.push("pileta");		
+			$scope.obligatorio.push("pileta");
+			$scope.obligatorioName.push("Pileta");		
 			$scope.selservice.push("pileta");		
 		}
 	}
 	if(pileta =="Deseable" ){
 		if(!$scope.selservice.includes("pileta")){
 			$scope.deseable.push("pileta");
+			$scope.deseableName.push("Pileta");
 			$scope.selservice.push("pileta");		
 		}
 	}
 
-	if(recepcion=="Impresindible" ){
+	if(recepcion=="Imprescindible" ){
 		if(!$scope.selservice.includes("recepcion")){
 		$scope.obligatorio.push("recepcion");
+		$scope.obligatorioName.push("Recepción las 24 hs");
 		$scope.selservice.push("recepcion");	
 		}		
 	}
 	if(recepcion =="Deseable" ){
 		if(!$scope.selservice.includes("recepcion")){
 			$scope.deseable.push("recepcion");
+			$scope.deseableName.push("Recepcion las 24 hs");
 			$scope.selservice.push("recepcion");
 		}		
 	}
 
-	if(playa=="Impresindible" ){
+	if(playa=="Imprescindible" ){
 		if(!$scope.selservice.includes("playa")){
+			$scope.obligatorioName.push("Acceso a playa");
 			$scope.obligatorio.push("playa");
 			$scope.selservice.push("playa");
 		}
@@ -299,24 +237,34 @@ $scope.applyServices = function(){
 	if(playa =="Deseable" ){
 		if(!$scope.selservice.includes("playa")){
 			$scope.deseable.push("playa");
+			$scope.deseableName.push("Acceso a playa");
 			$scope.selservice.push("playa");
 		}
 	}
-
+	
+	this.aplicarFiltros();
 };
 
+var cant =0;
 $scope.aplicarFiltros  = function(){
 	$scope.applyFilters = true;
+	$scope.cantstars=0;
+	cant=0;
 };
+
 
 $scope.customFilter = function(element) {
 
 	if($scope.applyFilters){
-		var filterPrecio = true;
+		var filterdesde = true;
+		var filterhasta = true;
 		var filterStars = true;
 		var filterServices = true;
-		if(angular.isDefined($scope.precio)&&$scope.precio>0){
-			filterPrecio= element.price <= $scope.precio;
+		if(angular.isDefined($scope.preciodesde)&&$scope.preciodesde>0){
+			filterdesde= element.price >= $scope.preciodesde;
+		}
+		if(angular.isDefined($scope.preciohasta)&&$scope.preciohasta>0){
+			filterhasta= element.price <= $scope.preciohasta;
 		}
 		if(angular.isDefined($scope.stars)&&$scope.stars.length>0){
 			var stars = false;	
@@ -333,7 +281,7 @@ $scope.customFilter = function(element) {
 			var playa =  true;
 			var recepcion = true;
 			var desayuno=true;		
-			if($scope.obligatorio.includes("WIFI")){
+			if($scope.obligatorio.includes("wifi")){
 				wifi = element.wifi		
 			}
 			if($scope.obligatorio.includes("desayuno")){
@@ -347,8 +295,8 @@ $scope.customFilter = function(element) {
 			}
 			filterServices = wifi && playa && desayuno && recepcion;
 		}
-		return filterPrecio && filterServices && filterStars;
-	}
+		return filterdesde && filterhasta && filterServices && filterStars;
+ 	}
 	return true;
 }
 
@@ -370,16 +318,6 @@ $scope.showVacaciones = function(){
 	$( "#estrellas" ).removeClass('hidden');
 	$( "#serviciosTrabajo" ).addClass('hidden');
 	$( "#serviciosVacaciones" ).removeClass('hidden');
-	$( "#estrellas" ).removeClass('active');
-	$( "#servicios" ).removeClass('active');
-	$( "#pago" ).removeClass('active');
-	$( "#precio" ).addClass('active');
-	$( "#panelservicios" ).addClass('hidden');
-	$( "#panelprecio" ).addClass('hidden');
-	$( "#panelpago" ).addClass('hidden');
-	$( "#panelestrella" ).addClass('hidden');
- 	$( "#panelprecio" ).removeClass('hidden');
-	
   };
 
 $scope.showTrabajo = function(){
@@ -419,9 +357,7 @@ $scope.showLujo = function(){
 	$( "#estrellas" ).removeClass('hidden');
 	$( "#serviciosTrabajo" ).addClass('hidden');
 	$( "#serviciosVacaciones" ).removeClass('hidden');
-
-	
-  };
+};
 
 $scope.showPersonalizado = function(){
         $( "#filtros" ).removeClass('hidden');
@@ -450,19 +386,45 @@ $scope.showPersonalizado = function(){
 		hotelsFactory.getHotelsByDestination($stateParams.searchString).then(function(d) {
 			d.forEach(function(item) {
    			$scope.hotels.push(item);
-});			    
+				if(item.wifi){
+					$scope.cantwifi++;
+				}
+				if(item.recepcion){
+					$scope.cantrec++;
+				}
+				if(item.pileta){
+					$scope.cantpile++;
+				}
+				if(item.playa){
+					$scope.cantplaya++;
+				}
+				if(item.cancelacion){
+					$scope.cantcanc++;
+				}
+			});
+					    
 		  });
 var precio = 'Precio';
 var estrellas = 'Estrellas';
 $scope.applyFilters = false;
 $scope.showFilters =false;
+$scope.cantwifi=0;
+$scope.cantrec=0;
+$scope.cantpile=0;
+$scope.cantplaya=0;
+$scope.cantcanc=0;
 $scope.options = [precio,estrellas];
+$scope.deseableName  = [ ];
+$scope.obligatorioName  = [ ];
 $scope.selservice = [ ];
 $scope.ops = [ ];
 $scope.valueOptions = [ ];
 $scope.obligatorio = [ ];
 $scope.deseable = [ ];
 $scope.pagos = [ ];
+$scope.cantstars=0;
+$scope.preciohasta;
+$scope.preciodesde;
 $scope.ordenadores2= [ ];
 $scope.services = [ ];	
 $scope.algo = [ ];
@@ -502,39 +464,7 @@ $stateProvider
     });
   $urlRouterProvider.otherwise('/despegar/home');
 }]);
-/*
-var h = [ 
-		{destination: "RIO",		
-		name: "H1",
-		stars: 3,
-		services : ["WIFI"],
-		price: 345}
-	,
 
-		{destination: "RIO",		
-		name: "H2",
-		stars: 3,
-		services : ["WIFI"],
-		price: 341}
-	,      {destination: "RIO",		
-		name: "H3",
-		stars: 4,
-		services : ["WIFI"],
-		price: 345}
-	,      {destination: "RIO",		
-		name: "H4",
-		stars: 4,
-		services : ["WIFI"],
-		price: 3400}
-	,
-		{destination: "RIO",		
-		name: "H5",
-		stars: 4,
-		services : ["WIFI"],
-		price: 34}
-	
-	];
-*/
 appDespe.factory('hotels', [function(){
   var o = {
     hotels: []

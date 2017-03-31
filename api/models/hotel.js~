@@ -6,6 +6,7 @@ module.exports = mongoose.model('Hotel', {
 		stars: Number,
 		wifi : Boolean,
 		desayuno: Boolean,
+		playa: Boolean,
 		cancelacion: Boolean,
 		pileta: Boolean,
 		url: String,

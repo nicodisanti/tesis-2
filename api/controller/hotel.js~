@@ -23,7 +23,7 @@ exports.findByDestination = function(req, res) {
 };
 
 exports.deleteHotel = function(req, res) {
-	Hotel.deleteOne({'id' :req.params.id}, function(err, hotel) {
+	Hotel.remove({'id' :req.params.id}, function(err, hotel) {
     if(err) return res.send(500, err.message);
 
     console.log('DELETE /hotel/' + req.params.id);

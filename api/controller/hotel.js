@@ -45,6 +45,7 @@ exports.addHotel = function(req, res) {
 		pileta: req.body.pileta,
 		desayuno: req.body.desayuno,
 		cancelacion: req.body.cancelacion,
+		ranking: req.body.ranking,		
 		recepcion: req.body.recepcion,
 		playa: req.body.playa,
 		url: req.body.url

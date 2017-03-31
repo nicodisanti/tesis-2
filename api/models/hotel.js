@@ -9,6 +9,7 @@ module.exports = mongoose.model('Hotel', {
 		playa: Boolean,
 		cancelacion: Boolean,
 		pileta: Boolean,
+		ranking : Number,
 		url: String,
 		price: Number});
 
