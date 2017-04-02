@@ -25,6 +25,8 @@ $scope.generateRanking=function(){
 
 	var desde =0;
 	var hasta =0;
+	var stars =0;
+	var deseables=0;
 
 	if(angular.isDefined($scope.preciodesde)&&$scope.preciodesde>=0){
 			desde= $scope.preciodesde;
@@ -33,8 +35,80 @@ $scope.generateRanking=function(){
 			hasta=$scope.preciohasta;
 	}
 
+	var precio = this.getValorPrecio(desde,hasta,elem.precio);
+	var calidad =  this.getValorEstrellas(elem.stars);
+	var deseables = this.getValorDeseables(elem);
+
+	elem.ranking = precio + calidad + deseables;
+}
+
+$scope.getValorPrecio=function(desde,hasta,precio){
+
+	var perc = ((precio - desde)*100)/(hasta-desde);
+	var barato = this.isBarato(perc);
+	var medio = this.isMedio(perc);
+	var car = this.isCaro(perc);
+
+	if(barato&&medio){
+		var valBarato =  this.getVal(perc);
+		var valMedio = this.getVal(perc);
+		return (4*valBarato+3*valMedio)/2;
+	}
+	if(medio&&caro){
+		var valMedio2 = this.getVal(perc);
+		var valCaro = this.getVal(perc);
+		return (2*valCaro+3*valMedio)/2;;	
+	}
+	if(caro){
+		return 2; 	
+	}
+	if(barato){
+		return 4;	
+	}
+	if(medio){
+		return 3;
+	}
+}
+
+$scope.getVal=function(x1,x2,perc){
+	 return (perc-x1)/(x2-x1);
+}
+$scope.isBarato=function(perc){
+
+	if(perc>=0.4){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+$scope.isMedio=function(perc){
+
+	if(perc>=0.8||perc<=0,2){
+		return false;
+	}else{
+		return true;
+	}
+}
 
 
+$scope.isCaro=function(perc){
+
+	if(perc<=0,6){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+$scope.getValorEstrellas=function(estrellas){
+	if(estrellas==1||estrellas==2){
+		return 0.5; 	
+	}
+	if(estrellas==4||estrellas==5){
+		return 2; 	
+	}
+	return 1;
 }
 
 $scope.ordenar=function(){ 
@@ -164,8 +238,8 @@ $scope.applyStars = function(){
  	$('input[name="estrellas"]:checked').each(function() {
    	$scope.stars.push(this.value);
 	});
-this.updateCounters();
-this.aplicarFiltros();
+	this.updateCounters();
+	this.aplicarFiltros();
 };
 
 $scope.applyServices = function(){
@@ -197,7 +271,6 @@ $scope.applyServices = function(){
 		$scope.deseableName.push("Wifi");
 		$scope.selservice.push("wifi");
 		}		
-				
 	}		
  	 
 	if(pileta=="Imprescindible" ){
