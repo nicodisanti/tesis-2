@@ -140,6 +140,7 @@ $scope.applyPrecio = function(){
  	$scope.desde=$scope.preciodesde;
 	$scope.hasta=$scope.preciohasta;
 	$( "#panelprecio" ).addClass('hidden');
+this.updateCounters();
 	this.aplicarFiltros();
 };
 
@@ -151,6 +152,7 @@ $scope.applyPago = function(){
 	$('input[name="pago"]:checked').each(function() {
 	   $scope.pagos.push(this.value);
 	});
+	this.updateCounters();	
 	this.aplicarFiltros();
 };
 
@@ -162,11 +164,12 @@ $scope.applyStars = function(){
  	$('input[name="estrellas"]:checked').each(function() {
    	$scope.stars.push(this.value);
 	});
+this.updateCounters();
 this.aplicarFiltros();
 };
 
 $scope.applyServices = function(){
-	$( "#panelservicios" ).addClass('hidden');
+
 	$scope.obligatorio = [];
 	$scope.selservice = [];
 	$scope.deseable = [];
@@ -242,9 +245,100 @@ $scope.applyServices = function(){
 			$scope.selservice.push("playa");
 		}
 	}
-	
+	this.updateCounters();
 	this.aplicarFiltros();
 };
+
+$scope.updateCounters  =function (){
+
+	$scope.cantwifi=0;
+	$scope.cantpile=0;	
+	$scope.cantrec=0;
+	$scope.cantplaya=0;
+	$scope.cantcanc=0;
+
+	$scope.hotels.forEach(function(item) {
+		
+
+		var filterdesde = true;
+		var filterhasta = true;
+		var filterStars = true;
+		var filterServices = true;
+		if(angular.isDefined($scope.preciodesde)&&$scope.preciodesde>0){
+			filterdesde= item.price >= $scope.preciodesde;
+		}
+		if(angular.isDefined($scope.preciohasta)&&$scope.preciohasta>0){
+			filterhasta= item.price <= $scope.preciohasta;
+		}
+		if(angular.isDefined($scope.stars)&&$scope.stars.length>0){
+			var stars = false;	
+			$scope.stars.forEach((function(it) {
+				if(it == element.stars)		
+					stars=true;		
+				}
+				));
+			filterStars = stars;
+		}
+
+		if(angular.isDefined($scope.obligatorio)&&$scope.obligatorio.length >0){
+			var wifi =  true;
+			var playa =  true;
+			var recepcion = true;
+			var desayuno=true;		
+			var pileta=true;			
+		
+			
+			if($scope.obligatorio.includes("pileta")){
+				pileta = item.pileta;		
+			}
+			if($scope.obligatorio.includes("wifi")){
+				wifi = item.wifi;		
+			}
+			if($scope.obligatorio.includes("desayuno")){
+				desayuno = item.desayuno;		
+			}
+			if($scope.obligatorio.includes("playa")){
+				playa = item.playa;		
+			}
+			if($scope.obligatorio.includes("recepcion")){
+				recepcion = item.recepcion		
+			}
+
+			var s = wifi&&playa&&recepcion&&desayuno&&pileta;
+			if(filterdesde&&filterhasta&&filterStars&item.wifi&&s){
+				$scope.cantwifi++;			
+			}
+			if(filterdesde&&filterhasta&&filterStars&item.pileta&&s){
+				$scope.cantpile++;			
+			}
+			if(filterdesde&&filterhasta&&filterStars&item.recepcion&&s){
+				$scope.cantrec++;			
+			}
+			if(filterdesde&&filterhasta&&filterStars&item.cancelacion&&s){
+				$scope.cantcanc++;			
+			}
+			if(filterdesde&&filterhasta&&filterStars&item.playa&&s){
+				$scope.cantplaya++;			
+			}
+		}else{
+			if(filterdesde&&filterhasta&&filterStars&item.wifi){
+				$scope.cantwifi++;	
+			}
+			if(filterdesde&&filterhasta&&filterStars&item.pileta){
+				$scope.cantpile++;			
+			}
+			if(filterdesde&&filterhasta&&filterStars&item.recepcion){
+				$scope.cantrec++;			
+			}
+			if(filterdesde&&filterhasta&&filterStars&item.cancelacion){
+				$scope.cantcanc++;			
+			}
+			if(filterdesde&&filterhasta&&filterStars&item.playa){
+				$scope.cantplaya++;			
+			}
+		}
+	});
+}
 
 var cant =0;
 $scope.aplicarFiltros  = function(){
@@ -282,21 +376,28 @@ $scope.customFilter = function(element) {
 			var playa =  true;
 			var recepcion = true;
 			var desayuno=true;		
+			var pileta=true;			
+		
+			
+			if($scope.obligatorio.includes("pileta")){
+				pileta = element.pileta;		
+			}
 			if($scope.obligatorio.includes("wifi")){
-				wifi = element.wifi		
+				wifi = element.wifi;		
 			}
 			if($scope.obligatorio.includes("desayuno")){
-				desayuno = element.desayuno		
+				desayuno = element.desayuno;		
 			}
 			if($scope.obligatorio.includes("playa")){
-				playa = element.playa		
+				playa = element.playa;		
 			}
 			if($scope.obligatorio.includes("recepcion")){
 				recepcion = element.recepcion		
 			}
-			filterServices = wifi && playa && desayuno && recepcion;
+			filterServices =pileta && wifi && playa && desayuno && recepcion;
 		}
-		return filterdesde && filterhasta && filterServices && filterStars;
+		var result = filterdesde && filterhasta && filterServices && filterStars;
+		return result;
  	}
 	return true;
 }
@@ -424,6 +525,10 @@ $scope.obligatorio = [ ];
 $scope.deseable = [ ];
 $scope.pagos = [ ];
 $scope.cantstars=0;
+$scope.wifiopt=[ ];
+$scope.cancopt=[ ];
+$scope.pileopt=[ ];
+$scope.recopt=[ ];
 $scope.preciohasta;
 $scope.preciodesde;
 $scope.ordenadores2= [ ];

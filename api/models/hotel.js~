@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 module.exports = mongoose.model('Hotel', {
+		id: String,		
 		destination: String,		
 		name: String,
 		stars: Number,
@@ -9,6 +10,7 @@ module.exports = mongoose.model('Hotel', {
 		playa: Boolean,
 		cancelacion: Boolean,
 		pileta: Boolean,
+		ranking : Number,
 		url: String,
 		price: Number});
 

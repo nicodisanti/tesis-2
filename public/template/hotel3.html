@@ -86,7 +86,7 @@
 				<input  type="number" value="Precio por noche" id="preciodesde" ng-model="preciodesde" style="width:15%;"/>
 				<label id="mensaje4" style="margin-left:3%;">    Hasta: $</label>			
 				<input  type="number"  value="0"id="preciohasta" ng-model="preciohasta" style="width:15%;"/>
-				<input style="float:right" class="btn btn-info" type="button" ng-click="applyPrecio()" value="Guardar" id="pricevalue" />
+				<input style="float:right" class="btn btn-info" type="button" ng-click="applyPrecio()" value="Aplicar" id="pricevalue" />
 			</div>
 
 			<div class="tab-pane fade fondofiltros" id="panelestrella" style="margin-top:2%;">
@@ -96,29 +96,29 @@
 				<input type="checkbox" name="estrellas" value="3" style="margin-left:5%;"><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/></input>
 				<input type="checkbox" name="estrellas" value="4" style="margin-left:5%;"><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/></input>
 				<input type="checkbox" name="estrellas" value="5" style="margin-left:5%;"><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/><label class="glyphicon glyphicon-star"/></input>
-				<input class="btn btn-info" type="button" ng-click="applyStars()" value="Guardar" style="float:right" />
+				<input class="btn btn-info" type="button" ng-click="applyStars()" value="Aplicar" style="float:right" />
 			</div>
 			<div class="tab-pane fade fondofiltros" id="panelpago" style="margin-top:2%;" >
 				<p>			
 				<input type="checkbox" name="pago" value="pago efectivo" style="margin-left:3%;" >Pago en efectivo</input>
 				<input type="checkbox" name="pago" value="pago en el hotel" style="margin-left:3%;">Pago en el hotel</input>
 				<input type="checkbox" name="pago" value="pago en cuotas" style="margin-left:3%;">Pago en Cuotas</input>
-				<input class="btn btn-info" type="button"  ng-click="applyPago()" value="Guardar" style="float:right"/>
+				<input class="btn btn-info" type="button"  ng-click="applyPago()" value="Aplicar" style="float:right"/>
 			</div>
-			<div class="tab-pane fade fondofiltros" id="panelservicios" style="margin-top:2%;">
+			<div class="tab-pane fade fondofiltros" id="panelservicios" style="margin-top:1%;">
 				<table class="table table-condensed">
-					<tr>
+					<tr> 
 						<td>
-							<lable style="float:left; width:120px;font-size:80%;" > WIFI (<span ng-bind="cantwifi"/>)</lable>
-							<select name="servicios" id="wifi" class="show-tick form-control" style="width:150px;float:left">
+							<lable style="float:left; width:120px;font-size:80%;" > WIFI (<span style="color:#204d74;" ng-bind="cantwifi"/>)</lable>
+							<select name="servicios" id="wifi" class="show-tick form-control" style="width:150px;float:left" ng-change="applyServices()" ng-model="wifiopt">
 								<option></option>
 								<option>Imprescindible</option>
 								<option>Deseable</option>
 							</select>						
 						</td>
 						<td>
-							<lable style="float:left;width:150px;font-size:80%;"> Recepcion 24 hs (<span ng-bind="cantrec"/>)</lable>
-							<select name="servicios" id="recepcion" class="show-tick form-control" style="width:150px;float:left">
+							<lable style="float:left;width:150px;font-size:80%;"> Recepcion 24 hs (<span style="color:#204d74;" ng-bind="cantrec"/>)</lable>
+							<select name="servicios" id="recepcion" class="show-tick form-control" style="width:150px;float:left" ng-change="applyServices()" ng-model="recopt">
 								<option></option>
 								<option>Imprescindible</option>
 								<option>Deseable</option>
@@ -127,16 +127,16 @@
 					</tr>
 					<tr>
 						<td>
-							<lable style="float:left;width:120px;font-size:80%;"> Pileta (<span ng-bind="cantrec"/>)</lable>
-				<select name="servicios" id="pileta" class="show-tick form-control" style="width:150px;float:left">
+							<lable style="float:left;width:120px;font-size:80%;"> Pileta (<span style="color:#204d74;" ng-bind="cantrec"/>)</lable>
+				<select name="servicios" id="pileta" class="show-tick form-control" style="width:150px;float:left" ng-change="applyServices()" ng-model="pileopt">
 					<option></option>
 					<option>Imprescindible</option>
 					<option>Deseable</option>
 				</select>
 						</td>
 						<td>
-<lable style="float:left;width:150px;font-size:80%;">Acceso a Playa (<span ng-bind="cantplaya"/>)</lable>
-				<select  name="servicios" id="playa" class="show-tick form-control" style="width:150px;float:left">
+<lable style="float:left;width:150px;font-size:80%;">Acceso a Playa (<span style="color:#204d74;" ng-bind="cantplaya"/>)</lable>
+				<select ng-change="applyServices()" ng-model="playaopt" name="servicios" id="playa" class="show-tick form-control" style="width:150px;float:left">
 					<option></option>
 					<option>Imprescindible</option>
 					<option>Deseable</option>
@@ -146,8 +146,8 @@
 
 					<tr>
 						<td>
-							<lable style="float:left;width:120px;font-size:80%;"> Cancelación gratuita (<span ng-bind="cantcanc"/>)</lable>
-							<select name="servicios" id="cancelacion" class="show-tick form-control" style="width:150px;float:left">
+							<lable style="float:left;width:120px;font-size:80%;"> Cancelación gratuita (<span style="color:#204d74;" ng-bind="cantcanc"/>)</lable>
+							<select name="servicios" id="cancelacion" class="show-tick form-control" style="width:150px;float:left" ng-change="applyServices()" ng-model="cancopt">
 								<option></option>
 								<option>Imprescindible</option>
 								<option>Deseable</option>
@@ -155,7 +155,6 @@
 						</td>
 					</tr>	
 				</table>
-				<input  class="btn btn-info" type="button" ng-click="applyServices()" value="Guardar" style="margin-left:90%;"/>
 			</div>
 
 <div class="tab-pane fade fondofiltros" id="panelserviciosTrabajo" style="margin-top:2%;">
@@ -198,13 +197,12 @@
 					</tr>
 
 				</table>
-				<input  class="btn btn-info" type="button" ng-click="applyServices()" value="Guardar" style="margin-left:90%;"/>
 			</div>
 		</div>
 		</div>
 		<div>
 			<br>				
-			<div id="prioridad" class="container" style="padding-top:3%;margin-left:35px;margin-top:3%;font-size:90%;width:95%;border-top-color: #f1f1f1;border-top-style: solid;">
+			<div id="prioridad" class="container" style="padding-top:2%;margin-left:35px;font-size:90%;width:95%;border-top-color: #f1f1f1;border-top-style: solid;">
 				 		
 				<select class="form-control" ng-change="ordenar()"  ng-model="ordenadores" id="order" style="width:220px; margin-left:1%;float:right;">
 					<option>Por preferencias</option>					
@@ -213,15 +211,15 @@
 					<option>Estrellas menor a mayor</option>
 					<option>Estrellas mayor a menor</option>					
 				</select>
-				<spam  style="float:right">Odenar :</spam>
+				<spam  style="float:right">Ordenar :</spam>
 			</div>			
 	  	</div>
-<div id="hotel-container"  style="margin-top:4%;"> 
+<div id="hotel-container"  style="margin-top:2%;"> 
 			<div ng-repeat="h in hotels | filter:customFilter  |orderBy: customOrder" class="list-group">		
 				<div id="datoshotel2" class="list-group-item active container" style="width:100%">
 				     	<div id="img" class="col-lg-3">
 						<br>
-						<img src="hotel.jpg" class="img-circle" height="130" width="130" style="margin-left:5%"/><br><br>
+						<img src="{{h._id}}.jpg" class="img-circle" height="130" width="130" style="margin-left:5%"/><br><br>
 					</div>
 					<div id="datos" class="col-lg-6">
 						<h4>{{h.name}}</h4>							
@@ -249,8 +247,6 @@
 	
 	</div>
 	<div id="bottom">
-		
-		
 	</div>
 </div>
 </body>
