@@ -23,68 +23,123 @@ appDespe.controller('HotelController', function($scope,filterFilter,hotelsFactor
 
 $scope.generateRanking=function(){ 
 
-	var desde =0;
-	var hasta =0;
-	var stars =0;
-	var deseables=0;
 
-	if(angular.isDefined($scope.preciodesde)&&$scope.preciodesde>=0){
-			desde= $scope.preciodesde;
-	}
-	if(angular.isDefined($scope.preciohasta)&&$scope.preciohasta>=0){
-			hasta=$scope.preciohasta;
-	}
+	$scope.hotels.forEach(function(elem) {
+		var desde =0;
+		var hasta =0;
+		var stars =0;
+		var deseables=0;
 
-	var precio = this.getValorPrecio(desde,hasta,elem.precio);
-	var calidad =  this.getValorEstrellas(elem.stars);
-	var deseables = this.getValorDeseables(elem);
+		if(angular.isDefined($scope.preciodesde)&&$scope.preciodesde>=0){
+				desde= $scope.preciodesde;
+		}
+		if(angular.isDefined($scope.preciohasta)&&$scope.preciohasta>=0){
+				hasta=$scope.preciohasta;
+		}
 
-	elem.ranking = precio + calidad + deseables;
+		var precio = getValorPrecio(desde,hasta,elem.price);
+		var calidad =  getValorEstrellas(elem.stars);
+		var deseables = getValorDeseables(elem);
+
+		if (typeof precio != 'undefined'){
+			elem.ranking = precio*0.2 + calidad*0.5 + deseables*0.3;		
+			console.log("hotel "+elem.name + " precio: "+precio+" calidad:"+calidad+" deseables: "+deseables);		
+		}
+	});
 }
 
-$scope.getValorPrecio=function(desde,hasta,precio){
+function getValorDeseables(elem){
+
+	
+	if(angular.isDefined($scope.deseable)&&$scope.deseable.length >0){
+		var deseables=$scope.deseable.length;
+		var tiene=0;
+		if(elem.pileta&&$scope.deseable.includes("pileta")){
+			tiene++;		
+		}	
+		if(elem.cancelacion&&$scope.deseable.includes("cancelacion")){
+			tiene++;		
+		}
+		if(elem.wifi&&$scope.deseable.includes("wifi")){
+			tiene++;		
+		}
+		if(elem.recepcion&&$scope.deseable.includes("recepcion")){
+			tiene++;		
+		}
+		if(elem.playa&&$scope.deseable.includes("playa")){
+			tiene++;		
+		}
+		
+		var perc = (deseables*100)/tiene;
+		
+		if(perc<=100){
+			if(perc==50){
+				return 3;
+			}
+			if(perc>60){
+				return 5;
+			}
+			if(perc<40){
+				return 1;		
+			}
+			if(perc>=40&&perc<50){
+				return getVal(40,50,1,0,perc);
+			}
+			return this.getVal(50,60,0,1,perc)*3;
+		}
+		return 1;
+	}else{
+		return 5;
+	}
+}
+
+function getValorPrecio(desde,hasta,precio){
 
 	var perc = ((precio - desde)*100)/(hasta-desde);
-	var barato = this.isBarato(perc);
-	var medio = this.isMedio(perc);
-	var car = this.isCaro(perc);
 
-	if(barato&&medio){
-		var valBarato =  this.getVal(perc);
-		var valMedio = this.getVal(perc);
-		return (4*valBarato+3*valMedio)/2;
-	}
-	if(medio&&caro){
-		var valMedio2 = this.getVal(perc);
-		var valCaro = this.getVal(perc);
-		return (2*valCaro+3*valMedio)/2;;	
-	}
-	if(caro){
-		return 2; 	
-	}
-	if(barato){
-		return 4;	
-	}
-	if(medio){
-		return 3;
-	}
+	if(perc<=100){
+		var barato = isBarato(perc);
+		var medio = isMedio(perc);
+		var caro = isCaro(perc);
+
+		if(barato&&medio){
+			var valBarato =  getVal(20,40,1,0,perc);
+			var valMedio = getVal(20,30,0,1,perc);
+				
+			return valBarato > valMedio ? 5 : 3;
+		}
+		if(medio&&caro){
+			var valMedio2 = getVal(70,80,1,0,perc);
+			var valCaro = getVal(60,80,0,1,perc);
+			return valMedio2 > valCaro ? 3 :1;	
+		}
+		if(caro){
+			return 1; 	
+		}
+		if(medio){
+			return 3;
+		}	
+		if(barato){
+			return 5;			
+		}
+	}	
 }
 
-$scope.getVal=function(x1,x2,perc){
-	 return (perc-x1)/(x2-x1);
+function getVal(x1,x2,y1,y2,perc){
+	 return (((perc-x1)/(x2-x1))*(y2-y1))+y1;
 }
-$scope.isBarato=function(perc){
+function isBarato(perc){
 
-	if(perc>=0.4){
+	if(perc>=40){
 		return false;
 	}else{
 		return true;
 	}
 }
 
-$scope.isMedio=function(perc){
+function isMedio(perc){
 
-	if(perc>=0.8||perc<=0,2){
+	if(perc>=80||perc<=20){
 		return false;
 	}else{
 		return true;
@@ -92,23 +147,23 @@ $scope.isMedio=function(perc){
 }
 
 
-$scope.isCaro=function(perc){
+function isCaro(perc){
 
-	if(perc<=0,6){
+	if(perc<=60){
 		return false;
 	}else{
 		return true;
 	}
 }
 
-$scope.getValorEstrellas=function(estrellas){
+function getValorEstrellas(estrellas){
 	if(estrellas==1||estrellas==2){
-		return 0.5; 	
+		return 1; 	
 	}
 	if(estrellas==4||estrellas==5){
-		return 2; 	
+		return 5; 	
 	}
-	return 1;
+	return 3;
 }
 
 $scope.ordenar=function(){ 
@@ -117,8 +172,9 @@ $scope.ordenar=function(){
 	var firstOrder = $('#order option:selected').text();
 	
 	if(firstOrder=="Por preferencias"){
-		this.generateRanking();		
+		this.generateRanking();
 		$scope.customOrder.push("-ranking");
+		$scope.customOrder.push("-stars");
 	}
 
 	if(firstOrder=="Precio mayor a menor"){
@@ -255,6 +311,8 @@ $scope.applyServices = function(){
 	var pileta = $( "#pileta").find(":selected").text();
 	var recepcion = $( "#recepcion").find(":selected").text();
 	var playa = $( "#playa").find(":selected").text();
+	var cancelacion = $( "#cancelacion").find(":selected").text();
+	
 	if(!$scope.options.includes("Servicios")&&!playa.isEmpty&&!wifi.isEmpty&&!pileta.isEmpty&&!recepcion.isEmpty){
 		$scope.options.push("Servicios");
 	}
@@ -318,6 +376,21 @@ $scope.applyServices = function(){
 			$scope.selservice.push("playa");
 		}
 	}
+	if(cancelacion=="Imprescindible" ){
+		if(!$scope.selservice.includes("cancelacion")){
+			$scope.obligatorio.push("cancelacion");
+			$scope.obligatorioName.push("Cancelacion gratuita");
+			$scope.selservice.push("cancelacion");
+		}		
+	}
+	if(cancelacion =="Deseable" ){
+		if(!$scope.selservice.includes("cancelacion")){
+		$scope.deseable.push("cancelacion");
+		$scope.deseableName.push("Cancelacion gratuita");
+		$scope.selservice.push("cancelacion");
+		}		
+	}
+
 	this.updateCounters();
 	this.aplicarFiltros();
 };
@@ -346,7 +419,7 @@ $scope.updateCounters  =function (){
 		if(angular.isDefined($scope.stars)&&$scope.stars.length>0){
 			var stars = false;	
 			$scope.stars.forEach((function(it) {
-				if(it == element.stars)		
+				if(it == item.stars)		
 					stars=true;		
 				}
 				));
@@ -357,7 +430,7 @@ $scope.updateCounters  =function (){
 			var wifi =  true;
 			var playa =  true;
 			var recepcion = true;
-			var desayuno=true;		
+			var cancelacion=true;		
 			var pileta=true;			
 		
 			
@@ -367,8 +440,8 @@ $scope.updateCounters  =function (){
 			if($scope.obligatorio.includes("wifi")){
 				wifi = item.wifi;		
 			}
-			if($scope.obligatorio.includes("desayuno")){
-				desayuno = item.desayuno;		
+			if($scope.obligatorio.includes("cancelacion")){
+				desayuno = item.cancelacion;		
 			}
 			if($scope.obligatorio.includes("playa")){
 				playa = item.playa;		
@@ -377,7 +450,7 @@ $scope.updateCounters  =function (){
 				recepcion = item.recepcion		
 			}
 
-			var s = wifi&&playa&&recepcion&&desayuno&&pileta;
+			var s = wifi&&playa&&recepcion&&cancelacion&&pileta;
 			if(filterdesde&&filterhasta&&filterStars&item.wifi&&s){
 				$scope.cantwifi++;			
 			}
@@ -448,7 +521,7 @@ $scope.customFilter = function(element) {
 			var wifi =  true;
 			var playa =  true;
 			var recepcion = true;
-			var desayuno=true;		
+			var cancelacion=true;		
 			var pileta=true;			
 		
 			
@@ -458,8 +531,8 @@ $scope.customFilter = function(element) {
 			if($scope.obligatorio.includes("wifi")){
 				wifi = element.wifi;		
 			}
-			if($scope.obligatorio.includes("desayuno")){
-				desayuno = element.desayuno;		
+			if($scope.obligatorio.includes("cancelacion")){
+				cancelacion = element.cancelacion;		
 			}
 			if($scope.obligatorio.includes("playa")){
 				playa = element.playa;		
@@ -467,7 +540,7 @@ $scope.customFilter = function(element) {
 			if($scope.obligatorio.includes("recepcion")){
 				recepcion = element.recepcion		
 			}
-			filterServices =pileta && wifi && playa && desayuno && recepcion;
+			filterServices =pileta && wifi && playa && cancelacion && recepcion;
 		}
 		var result = filterdesde && filterhasta && filterServices && filterStars;
 		return result;

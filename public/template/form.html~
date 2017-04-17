@@ -89,9 +89,9 @@ button {
       		<h2>¿Dónde queres ir?</h2>
     	</div>
 	<label >Por favor, ingresa una ciudad</label>		
-	<input type="text" name="name" placeholder="Destino" /><br/>
+	<input type="text" name="name" placeholder="Destino" ng-model="destination" /><br/>
 	<label for="datepicker-ci">Por favor, seleccione una fecha de entrada.</label><br/>
-	<input type="text"  placeholder="checkin"  id="datepicker-ci"></input><br/>
+	<input type="text"  placeholder="checkin"  id="datepicker-ci" style="color:black"></input><br/>
 	<label for="datepicker-co">Por favor, seleccione una fecha de salida.</label><br/>
         <input type = "text"  placeholder="checkout" id = "datepicker-co"></input><br/>
 	<label>Habitaciones</label>
